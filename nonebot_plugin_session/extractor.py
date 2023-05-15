@@ -1,8 +1,9 @@
-from typing import Generic, List, NamedTuple, Optional, Type, TypeVar
+from typing import Generic, List, NamedTuple, Optional, Type, TypeVar, Union
 
 from nonebot.adapters import Bot, Event
+from nonebot.params import Depends
 
-from .session import Session, SessionLevel
+from .session import Session, SessionIdType, SessionLevel
 
 B = TypeVar("B", bound=Bot)
 E = TypeVar("E", bound=Event)
@@ -73,3 +74,24 @@ def extract_session(bot: Bot, event: Event) -> Session:
         ):
             return extractor_tuple.extractor(bot, event).extract()
     return SessionExtractor(bot, event).extract()
+
+
+def SessionId(
+    id_type: Union[int, SessionIdType],
+    *,
+    include_platform: bool = True,
+    include_bot_type: bool = True,
+    include_bot_id: bool = True,
+    seperator: str = "_"
+):
+    def dependency(bot: Bot, event: Event) -> str:
+        session = extract_session(bot, event)
+        return session.get_id(
+            id_type,
+            include_platform=include_platform,
+            include_bot_type=include_bot_type,
+            include_bot_id=include_bot_id,
+            seperator=seperator,
+        )
+
+    return Depends(dependency)
