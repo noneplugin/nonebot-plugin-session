@@ -8,8 +8,10 @@ try:
 
     require("nonebot_plugin_saa")
 
-    from nonebot_plugin_saa import (  # TargetKaiheilaChannel,; TargetKaiheilaPrivate,; TargetQQGuildChannel,; TargetQQGuildDirect,
+    from nonebot_plugin_saa import (  # TargetQQGuildChannel,; TargetQQGuildDirect,
         PlatformTarget,
+        TargetKaiheilaChannel,
+        TargetKaiheilaPrivate,
         TargetOB12Unknow,
         TargetQQGroup,
         TargetQQPrivate,
@@ -31,11 +33,11 @@ try:
         #                 recipient_id=int(self.id1), source_guild_id=int(self.id3)
         #             )
 
-        # elif self.platform == SupportedPlatform.kaiheila:
-        #     if self.level == SessionLevel.LEVEL1 and self.id1:
-        #         return TargetKaiheilaPrivate(user_id=self.id1)
-        #     if self.level == SessionLevel.LEVEL3 and self.id2:
-        #         return TargetKaiheilaChannel(channel_id=self.id2)
+        elif self.platform == SupportedPlatform.kaiheila:
+            if self.level == SessionLevel.LEVEL1 and self.id1:
+                return TargetKaiheilaPrivate(user_id=self.id1)
+            if self.level == SessionLevel.LEVEL3 and self.id2:
+                return TargetKaiheilaChannel(channel_id=self.id2)
 
         if self.bot_type == SupportedAdapter.onebot_v12:
             if self.level == SessionLevel.LEVEL1:
