@@ -34,7 +34,7 @@ jobs:
         run: poetry install --with adapters
 
       - name: Run tests
-        run: poetry run pytest -n auto --cov-report xml
+        run: poetry run pytest --cov-report xml --cov=./nonebot_plugin_session
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
