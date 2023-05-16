@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "nonebot_plugin_session"
 version = "0.0.1"
-description = "Nonebot2 会话目标提取与会话id定义"
+description = "Nonebot2 会话信息提取与会话id定义"
 authors = ["meetwq <meetwq@gmail.com>"]
 license = "MIT"
 readme = "README.md"
