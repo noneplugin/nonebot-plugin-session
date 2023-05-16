@@ -1,3 +1,7 @@
+import pytest
+
+pytest.importorskip("nonebot.adapters.kaiheila")
+
 from nonebot import get_driver
 from nonebot.adapters.kaiheila import Adapter, Bot, Message
 from nonebot.adapters.kaiheila.event import (
