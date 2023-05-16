@@ -6,7 +6,7 @@
 
 # nonebot-plugin-session
 
-_✨ [Nonebot2](https://github.com/nonebot/nonebot2) 会话目标提取与会话 id 定义插件 ✨_
+_✨ [Nonebot2](https://github.com/nonebot/nonebot2) 会话信息提取与会话 id 定义插件 ✨_
 
 <p align="center">
   <img src="https://img.shields.io/github/license/noneplugin/nonebot-plugin-session" alt="license">
