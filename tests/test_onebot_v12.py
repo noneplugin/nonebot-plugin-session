@@ -13,8 +13,6 @@ from nonebot.adapters.onebot.v12 import (
 from nonebot.adapters.onebot.v12.event import BotSelf
 from nonebug.app import App
 
-from nonebot_plugin_session import SessionLevel, extract_session
-
 from .utils import assert_session, assert_session_id
 
 
@@ -25,6 +23,8 @@ def new_bot(self_id: str, impl: str, platform: str) -> Bot:
 
 
 def test_private_message_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233", impl="walle-q", platform="qq")
     event = PrivateMessageEvent(
         id="1122",
@@ -66,6 +66,8 @@ def test_private_message_event(app: App):
 
 
 def test_group_message_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233", impl="walle-q", platform="qq")
     event = GroupMessageEvent(
         id="1122",
@@ -108,6 +110,8 @@ def test_group_message_event(app: App):
 
 
 def test_channel_message_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233", impl="all4one", platform="qqguild")
     event = ChannelMessageEvent(
         id="1122",
@@ -151,6 +155,8 @@ def test_channel_message_event(app: App):
 
 
 def test_undefined_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233", impl="walle-q", platform="qq")
     event = HeartbeatMetaEvent(
         id="1122",

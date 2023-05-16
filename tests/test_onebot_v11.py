@@ -10,8 +10,6 @@ from nonebot.adapters.onebot.v11 import (
 from nonebot.adapters.onebot.v11.event import Sender, Status
 from nonebug.app import App
 
-from nonebot_plugin_session import SessionLevel, extract_session
-
 from .utils import assert_session, assert_session_id
 
 
@@ -20,6 +18,8 @@ def new_bot(self_id: str) -> Bot:
 
 
 def test_private_message_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233")
     event = PrivateMessageEvent(
         time=1122,
@@ -62,6 +62,8 @@ def test_private_message_event(app: App):
 
 
 def test_group_message_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233")
     event = GroupMessageEvent(
         group_id=1122,
@@ -105,6 +107,8 @@ def test_group_message_event(app: App):
 
 
 def test_undefined_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233")
     event = HeartbeatMetaEvent(
         time=1122,
