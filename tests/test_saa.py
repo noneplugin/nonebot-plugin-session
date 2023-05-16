@@ -1,10 +1,10 @@
-from nonebot_plugin_saa.utils.platform_send_target import TargetQQGroup
 from nonebug.app import App
-
-from nonebot_plugin_session import Session, SessionLevel
 
 
 def test_get_saa_target(app: App):
+    from nonebot_plugin_saa.utils.platform_send_target import TargetQQGroup
+    from nonebot_plugin_session import Session, SessionLevel
+
     session = Session(
         bot_id="2233",
         bot_type="OneBot V11",
