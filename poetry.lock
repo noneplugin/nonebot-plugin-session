@@ -1812,7 +1812,7 @@ name = "strenum"
 version = "0.4.10"
 description = "An Enum that inherits from str."
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 files = [
     {file = "StrEnum-0.4.10-py3-none-any.whl", hash = "sha256:aebf04bba8e5af435937c452d69a86798b6f8d5ca5f20ba18561dbfad571ccdd"},
@@ -2285,4 +2285,4 @@ saa = ["nonebot-plugin-send-anything-anywhere"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "8b3fab0fbb0a9ce613615f3ee3e91afea38754dcc66fdf783019d554077fe203"
+content-hash = "ea2da5982f2ad4128bcc8b3c0b2ad8f6069dccbd3161bf867d9f674035386a58"
