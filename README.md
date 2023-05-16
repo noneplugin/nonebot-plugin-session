@@ -81,12 +81,12 @@ async def handle(session_id: str = SessionId(SessionIdType.GROUP)):
 
 ```python
 from nonebot_plugin_session import extract_session
-from nonebot_plugin_session.model import get_or_create_session_model
+from nonebot_plugin_session.model import get_or_add_session_model
 
 @matcher.handle()
 async def handle(bot: Bot, event: Event):
     session = extract_session(bot, event)
-    model = await get_or_create_session_model(session)  # 可关联其他表用于筛选等
+    model = await get_or_add_session_model(session)  # 可关联其他表用于筛选等
 ```
 
 

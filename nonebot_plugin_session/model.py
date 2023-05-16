@@ -36,7 +36,19 @@ try:
         id2: Mapped[Optional[str]] = mapped_column(String(64))
         id3: Mapped[Optional[str]] = mapped_column(String(64))
 
-    async def get_or_create_session_model(session: Session) -> SessionModel:
+        @property
+        def session(self) -> Session:
+            return Session(
+                bot_id=self.bot_id,
+                bot_type=self.bot_type,
+                platform=self.platform,
+                level=self.level,
+                id1=self.id1,
+                id2=self.id2,
+                id3=self.id3,
+            )
+
+    async def get_or_add_session_model(session: Session) -> SessionModel:
         async with create_session() as db_session:
             statement = (
                 select(SessionModel)
