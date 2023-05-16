@@ -1,18 +1,19 @@
-from typing import Optional, Tuple
+from typing import TYPE_CHECKING, Optional, Tuple
 
-from nonebot_plugin_session import Session, SessionLevel
+if TYPE_CHECKING:
+    from nonebot_plugin_session import Session, SessionLevel
 
 
 def assert_session(
-    session: Session,
+    session: "Session",
     *,
-    bot_id: str = "",
-    bot_type: str = "",
-    platform: str = "",
-    level: SessionLevel = SessionLevel.LEVEL0,
-    id1: Optional[str] = None,
-    id2: Optional[str] = None,
-    id3: Optional[str] = None
+    bot_id: str,
+    bot_type: str,
+    platform: str,
+    level: "SessionLevel",
+    id1: Optional[str],
+    id2: Optional[str],
+    id3: Optional[str]
 ):
     assert session.bot_id == bot_id
     assert session.bot_type == bot_type
@@ -23,6 +24,6 @@ def assert_session(
     assert session.id3 == id3
 
 
-def assert_session_id(session: Session, ids: Tuple[str, ...]):
+def assert_session_id(session: "Session", ids: Tuple[str, ...]):
     for i in range(len(ids)):
         assert session.get_id(i) == ids[i]
