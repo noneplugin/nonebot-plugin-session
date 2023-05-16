@@ -1910,4 +1910,4 @@ saa = ["nonebot-plugin-send-anything-anywhere"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "0cf92e192bba716eee2997f0aa9715380ddb9a3aa564e02af13dd4f269295047"
+content-hash = "2d23023421f5454c15c26a92fa41c3b799f606d651ce4c831c9681504a1a69a7"

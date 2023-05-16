@@ -4,8 +4,6 @@ from nonebot import get_driver
 from nonebot.adapters.console import Adapter, Bot, Message, MessageEvent, User
 from nonebug.app import App
 
-from nonebot_plugin_session import SessionLevel, extract_session
-
 from .utils import assert_session, assert_session_id
 
 
@@ -14,6 +12,8 @@ def new_bot(self_id: str) -> Bot:
 
 
 def test_message_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
     bot = new_bot(self_id="2233")
     event = MessageEvent(
         time=datetime.now(),

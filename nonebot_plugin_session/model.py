@@ -1,17 +1,20 @@
-from typing import Optional, Union
+from typing import Optional
 
-from .session import Session, SessionIdType, SessionLevel
+from .session import Session, SessionLevel
 
 try:
+    from nonebot import require
+
+    require("nonebot_plugin_datastore")
+
     from nonebot_plugin_datastore import create_session, get_plugin_data
     from sqlalchemy import Enum, String, UniqueConstraint, select
-    from sqlalchemy.ext.hybrid import hybrid_method
     from sqlalchemy.orm import Mapped, mapped_column
 
     Model = get_plugin_data().Model
 
     class SessionModel(Model):
-        __table_args__ = {
+        __table_args__ = (
             UniqueConstraint(
                 "bot_id",
                 "bot_type",
@@ -22,42 +25,16 @@ try:
                 "id3",
                 name="unique_session",
             ),
-        }
+        )
 
         id: Mapped[int] = mapped_column(primary_key=True)
         bot_id: Mapped[str] = mapped_column(String(64))
         bot_type: Mapped[str] = mapped_column(String(32))
         platform: Mapped[str] = mapped_column(String(32))
-        level: Mapped[SessionLevel] = mapped_column(Enum)
+        level: Mapped[SessionLevel] = mapped_column(Enum(SessionLevel))
         id1: Mapped[Optional[str]] = mapped_column(String(64))
         id2: Mapped[Optional[str]] = mapped_column(String(64))
         id3: Mapped[Optional[str]] = mapped_column(String(64))
-
-        @hybrid_method
-        def get_id(
-            self,
-            id_type: Union[int, SessionIdType],
-            *,
-            include_platform: bool = True,
-            include_bot_type: bool = True,
-            include_bot_id: bool = True,
-            seperator: str = "_",
-        ) -> str:
-            return Session(
-                bot_id=self.bot_id,
-                bot_type=self.bot_type,
-                platform=self.platform,
-                level=self.level,
-                id1=self.id1,
-                id2=self.id2,
-                id3=self.id3,
-            ).get_id(
-                id_type=id_type,
-                include_bot_id=include_bot_id,
-                include_bot_type=include_bot_type,
-                include_platform=include_platform,
-                seperator=seperator,
-            )
 
     async def get_or_create_session_model(session: Session) -> SessionModel:
         async with create_session() as db_session:
