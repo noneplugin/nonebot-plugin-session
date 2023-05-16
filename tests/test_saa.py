@@ -3,6 +3,7 @@ from nonebug.app import App
 
 def test_get_saa_target(app: App):
     from nonebot_plugin_saa.utils.platform_send_target import TargetQQGroup
+
     from nonebot_plugin_session import Session, SessionLevel
 
     session = Session(

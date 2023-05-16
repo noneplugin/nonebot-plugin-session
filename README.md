@@ -62,7 +62,6 @@ from nonebot_plugin_session import extract_session
 @matcher.handle()
 async def handle(bot: Bot, event: Event):
     session = extract_session(bot, event)
-    # session 可用于存储、比较等
 ```
 
 
@@ -75,6 +74,31 @@ from nonebot_plugin_session import SessionId, SessionIdType
 async def handle(session_id: str = SessionId(SessionIdType.GROUP)):
     # 获取 “群组级别” 的 session id
     ...
+```
+
+
+将 `Session` 存至数据库中（需要安装 [nonebot-plugin-datastore](https://github.com/he0119/nonebot-plugin-datastore) 插件）
+
+```python
+from nonebot_plugin_session import extract_session
+from nonebot_plugin_session.model import get_or_create_session_model
+
+@matcher.handle()
+async def handle(bot: Bot, event: Event):
+    session = extract_session(bot, event)
+    model = await get_or_create_session_model(session)  # 可关联其他表用于筛选等
+```
+
+
+从 `Session` 中获取 `saa` 的 `PlatformTarget` 对象用于发送（需要安装 [nonebot-plugin-send-anything-anywhere](https://github.com/felinae98/nonebot-plugin-send-anything-anywhere) 插件）
+
+```python
+from nonebot_plugin_session import extract_session
+
+@matcher.handle()
+async def handle(bot: Bot, event: Event):
+    session = extract_session(bot, event)
+    target = session.get_saa_target()  # 用于发送
 ```
 
 

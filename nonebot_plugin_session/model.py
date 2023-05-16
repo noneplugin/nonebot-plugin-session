@@ -65,5 +65,5 @@ try:
             await db_session.commit()
             return session_model
 
-except ImportError:
+except (ImportError, RuntimeError):
     pass
