@@ -1,3 +1,4 @@
+from ..const import SupportedPlatform
 from ..extractor import SessionExtractor, register_session_extractor
 from ..session import SessionLevel
 
@@ -7,7 +8,7 @@ try:
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
         def extract_platform(self) -> str:
-            return "console"
+            return SupportedPlatform.console
 
         def extract_level(self) -> SessionLevel:
             return SessionLevel.LEVEL1

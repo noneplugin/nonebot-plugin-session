@@ -1,5 +1,6 @@
 from typing import Optional
 
+from ..const import SupportedPlatform
 from ..extractor import SessionExtractor, register_session_extractor
 from ..session import SessionLevel
 
@@ -25,7 +26,7 @@ try:
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
         def extract_platform(self) -> str:
-            return "qq"
+            return SupportedPlatform.qq
 
         def extract_level(self) -> SessionLevel:
             if isinstance(
