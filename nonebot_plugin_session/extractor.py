@@ -3,6 +3,7 @@ from typing import Generic, List, NamedTuple, Optional, Type, TypeVar, Union
 from nonebot.adapters import Bot, Event
 from nonebot.params import Depends
 
+from .const import SupportedPlatform
 from .session import Session, SessionIdType, SessionLevel
 
 B = TypeVar("B", bound=Bot)
@@ -21,7 +22,7 @@ class SessionExtractor(Generic[B, E]):
         return self.bot.type
 
     def extract_platform(self) -> str:
-        return "unknown"
+        return SupportedPlatform.unknown
 
     def extract_level(self) -> SessionLevel:
         return SessionLevel.LEVEL0
