@@ -37,6 +37,8 @@ adapters = [
   { name = "Console", module_name = "nonebot.adapters.console" },
   { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
   { name = "OneBot V12", module_name = "nonebot.adapters.onebot.v12" },
+  { name = "Kaiheila", module_name = "nonebot.adapters.kaiheila" },
+  { name = "QQ Guild", module_name = "nonebot.adapters.qqguild" },
 ]
 
 [tool.poetry.extras]
