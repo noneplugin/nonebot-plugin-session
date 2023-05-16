@@ -12,5 +12,8 @@ try:
         def extract_level(self) -> SessionLevel:
             return SessionLevel.LEVEL1
 
+        def extract_id1(self) -> str:
+            return self.event.user.id
+
 except ImportError:
     pass

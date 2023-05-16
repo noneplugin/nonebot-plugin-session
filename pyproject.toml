@@ -15,6 +15,12 @@ nonebot2 = { version = "^2.0.0-rc.1", extras = ["fastapi"] }
 [tool.poetry.group.dev.dependencies]
 black = "^22.8.0"
 
+[tool.poetry.group.test.dependencies]
+pytest-cov = "^4.0.0"
+pytest-asyncio = "^0.20.0"
+nonebug = "^0.3.0"
+nonebot2 = { version = "^2.0.0-rc.1", extras = ["fastapi"] }
+
 [tool.poetry.group.adapters]
 optional = true
 

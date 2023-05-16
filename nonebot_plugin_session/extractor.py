@@ -29,7 +29,7 @@ class SessionExtractor(Generic[B, E]):
     def extract_id1(self) -> Optional[str]:
         try:
             return self.event.get_user_id()
-        except NotImplementedError:
+        except (NotImplementedError, ValueError):
             pass
 
     def extract_id2(self) -> Optional[str]:
