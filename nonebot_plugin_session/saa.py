@@ -4,6 +4,10 @@ from .const import SupportedAdapter, SupportedPlatform
 from .session import Session, SessionLevel
 
 try:
+    from nonebot import require
+
+    require("nonebot_plugin_saa")
+
     from nonebot_plugin_saa import (  # TargetKaiheilaChannel,; TargetKaiheilaPrivate,; TargetQQGuildChannel,; TargetQQGuildDirect,
         PlatformTarget,
         TargetOB12Unknow,
@@ -44,5 +48,5 @@ try:
                 )
 
     Session.get_saa_target = get_saa_target
-except ImportError:
+except (ImportError, RuntimeError):
     pass
