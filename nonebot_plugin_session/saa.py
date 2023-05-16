@@ -8,10 +8,14 @@ try:
 
     require("nonebot_plugin_saa")
 
-    from nonebot_plugin_saa import (  # TargetKaiheilaChannel,; TargetKaiheilaPrivate,; TargetQQGuildChannel,; TargetQQGuildDirect,
+    from nonebot_plugin_saa import (
         PlatformTarget,
+        TargetKaiheilaChannel,
+        TargetKaiheilaPrivate,
         TargetOB12Unknow,
         TargetQQGroup,
+        TargetQQGuildChannel,
+        TargetQQGuildDirect,
         TargetQQPrivate,
     )
 
@@ -22,20 +26,20 @@ try:
             elif self.level == SessionLevel.LEVEL2 and self.id2:
                 return TargetQQGroup(group_id=int(self.id2))
 
-        # elif self.platform == SupportedPlatform.qqguild:
-        #     if self.level == SessionLevel.LEVEL3:
-        #         if self.id2:
-        #             return TargetQQGuildChannel(channel_id=int(self.id2))
-        #         if self.id1 and self.id3:
-        #             return TargetQQGuildDirect(
-        #                 recipient_id=int(self.id1), source_guild_id=int(self.id3)
-        #             )
+        elif self.platform == SupportedPlatform.qqguild:
+            if self.level == SessionLevel.LEVEL3:
+                if self.id2:
+                    return TargetQQGuildChannel(channel_id=int(self.id2))
+                if self.id1 and self.id3:
+                    return TargetQQGuildDirect(
+                        recipient_id=int(self.id1), source_guild_id=int(self.id3)
+                    )
 
-        # elif self.platform == SupportedPlatform.kaiheila:
-        #     if self.level == SessionLevel.LEVEL1 and self.id1:
-        #         return TargetKaiheilaPrivate(user_id=self.id1)
-        #     if self.level == SessionLevel.LEVEL3 and self.id2:
-        #         return TargetKaiheilaChannel(channel_id=self.id2)
+        elif self.platform == SupportedPlatform.kaiheila:
+            if self.level == SessionLevel.LEVEL1 and self.id1:
+                return TargetKaiheilaPrivate(user_id=self.id1)
+            if self.level == SessionLevel.LEVEL3 and self.id2:
+                return TargetKaiheilaChannel(channel_id=self.id2)
 
         if self.bot_type == SupportedAdapter.onebot_v12:
             if self.level == SessionLevel.LEVEL1:

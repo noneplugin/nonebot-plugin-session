@@ -118,9 +118,9 @@ async def handle(bot: Bot, event: Event):
 
 ### 支持的 adapter
 
-| OneBot v11 | OneBot v12 | Console |
-| :--------: | :--------: | :------: |
-|     ✅     |     ✅     |    ✅    |
+| OneBot v11 | OneBot v12 | Console | Kaiheila |
+| :--------: | :--------: | :------: | :------: |
+|     ✅     |     ✅     |    ✅    |    ✅    |
 
 
 ### 鸣谢
