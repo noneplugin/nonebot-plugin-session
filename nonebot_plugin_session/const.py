@@ -7,6 +7,7 @@ class SupportedAdapter(StrEnum):
     console = "Console"
     kaiheila = "Kaiheila"
     qqguild = "QQ Guild"
+    telegram = "Telegram"
 
 
 class SupportedPlatform(StrEnum):
@@ -14,4 +15,5 @@ class SupportedPlatform(StrEnum):
     console = "console"
     kaiheila = "kaiheila"
     qqguild = "qqguild"
+    telegram = "telegram"
     unknown = "unknown"
