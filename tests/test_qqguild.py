@@ -72,7 +72,7 @@ def test_direct_message_create_event(app: App):
         bot_id="2233",
         bot_type="QQ Guild",
         platform="qqguild",
-        level=SessionLevel.LEVEL3,
+        level=SessionLevel.LEVEL1,
         id1="3344",
         id2=None,
         id3="5566",
@@ -82,12 +82,12 @@ def test_direct_message_create_event(app: App):
         (
             "qqguild_QQ Guild_2233",
             "qqguild_QQ Guild_2233_3344",
-            "qqguild_QQ Guild_2233_",
-            "qqguild_QQ Guild_2233__3344",
-            "qqguild_QQ Guild_2233_5566",
-            "qqguild_QQ Guild_2233_5566_3344",
-            "qqguild_QQ Guild_2233_5566_",
-            "qqguild_QQ Guild_2233_5566__3344",
+            "qqguild_QQ Guild_2233_3344",
+            "qqguild_QQ Guild_2233_3344",
+            "qqguild_QQ Guild_2233_3344",
+            "qqguild_QQ Guild_2233_3344",
+            "qqguild_QQ Guild_2233_3344",
+            "qqguild_QQ Guild_2233_3344",
         ),
     )
 
