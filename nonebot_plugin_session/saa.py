@@ -27,13 +27,14 @@ try:
                 return TargetQQGroup(group_id=int(self.id2))
 
         elif self.platform == SupportedPlatform.qqguild:
-            if self.level == SessionLevel.LEVEL3:
-                if self.id2:
-                    return TargetQQGuildChannel(channel_id=int(self.id2))
+            if self.level == SessionLevel.LEVEL1:
                 if self.id1 and self.id3:
                     return TargetQQGuildDirect(
                         recipient_id=int(self.id1), source_guild_id=int(self.id3)
                     )
+            elif self.level == SessionLevel.LEVEL3:
+                if self.id2:
+                    return TargetQQGuildChannel(channel_id=int(self.id2))
 
         elif self.platform == SupportedPlatform.kaiheila:
             if self.level == SessionLevel.LEVEL1 and self.id1:

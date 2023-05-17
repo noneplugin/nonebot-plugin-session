@@ -7,6 +7,7 @@ from ..session import SessionLevel
 try:
     from nonebot.adapters.qqguild import (
         Bot,
+        DirectMessageCreateEvent,
         Event,
         MessageAuditEvent,
         MessageEvent,
@@ -19,7 +20,9 @@ try:
             return SupportedPlatform.qqguild
 
         def extract_level(self) -> SessionLevel:
-            if isinstance(
+            if isinstance(self.event, DirectMessageCreateEvent):
+                return SessionLevel.LEVEL1
+            elif isinstance(
                 self.event,
                 (
                     MessageEvent,
