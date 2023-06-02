@@ -7,7 +7,7 @@ try:
 
     require("nonebot_plugin_datastore")
 
-    from nonebot_plugin_datastore import create_session, get_plugin_data
+    from nonebot_plugin_datastore import get_plugin_data
     from sqlalchemy import Enum, String, UniqueConstraint, select
     from sqlalchemy.ext.asyncio import AsyncSession
     from sqlalchemy.orm import Mapped, mapped_column
@@ -49,9 +49,9 @@ try:
                 id3=self.id3,
             )
 
-
-    async def get_or_add_session_model(session: Session, db_session: AsyncSession,
-                                       commit: bool = True) -> SessionModel:
+    async def get_or_add_session_model(
+        session: Session, db_session: AsyncSession, commit: bool = True
+    ) -> SessionModel:
         statement = (
             select(SessionModel)
             .where(SessionModel.bot_id == session.bot_id)

@@ -80,13 +80,15 @@ async def handle(session_id: str = SessionId(SessionIdType.GROUP)):
 将 `Session` 存至数据库中（需要安装 [nonebot-plugin-datastore](https://github.com/he0119/nonebot-plugin-datastore) 插件）
 
 ```python
+from nonebot_plugin_datastore import create_session
 from nonebot_plugin_session import extract_session
 from nonebot_plugin_session.model import get_or_add_session_model
 
 @matcher.handle()
 async def handle(bot: Bot, event: Event):
     session = extract_session(bot, event)
-    model = await get_or_add_session_model(session)  # 可关联其他表用于筛选等
+    async with create_session() as db_session:
+        session_model = await get_or_add_session_model(session, db_session)  # 可关联其他表用于筛选等
 ```
 
 
