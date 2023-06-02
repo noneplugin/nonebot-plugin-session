@@ -53,10 +53,10 @@ async def test_create_and_filter_session(app: App):
         id3=None,
     )
 
-    session_model = await get_or_add_session_model(session)
-    assert session_model.id != 0
-
     async with create_session() as db_session:
+        session_model = await get_or_add_session_model(session, db_session)
+        assert session_model.id != 0
+
         statement = select(SessionModel).where(
             SessionModel.bot_id == "2233",
             SessionModel.level == SessionLevel.LEVEL2,
