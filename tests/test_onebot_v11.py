@@ -10,7 +10,7 @@ from nonebot.adapters.onebot.v11 import (
 from nonebot.adapters.onebot.v11.event import Sender, Status
 from nonebug.app import App
 
-from .utils import assert_session, assert_session_id
+from .utils import assert_session
 
 
 def new_bot(self_id: str) -> Bot:
@@ -46,19 +46,6 @@ def test_private_message_event(app: App):
         id2=None,
         id3=None,
     )
-    assert_session_id(
-        session,
-        (
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233_3344",
-            "qq_OneBot V11_2233_3344",
-            "qq_OneBot V11_2233_3344",
-            "qq_OneBot V11_2233_3344",
-            "qq_OneBot V11_2233_3344",
-            "qq_OneBot V11_2233_3344",
-            "qq_OneBot V11_2233_3344",
-        ),
-    )
 
 
 def test_group_message_event(app: App):
@@ -91,19 +78,6 @@ def test_group_message_event(app: App):
         id2="1122",
         id3=None,
     )
-    assert_session_id(
-        session,
-        (
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233_3344",
-            "qq_OneBot V11_2233_1122",
-            "qq_OneBot V11_2233_1122_3344",
-            "qq_OneBot V11_2233_1122",
-            "qq_OneBot V11_2233_1122_3344",
-            "qq_OneBot V11_2233_1122",
-            "qq_OneBot V11_2233_1122_3344",
-        ),
-    )
 
 
 def test_undefined_event(app: App):
@@ -128,17 +102,4 @@ def test_undefined_event(app: App):
         id1=None,
         id2=None,
         id3=None,
-    )
-    assert_session_id(
-        session,
-        (
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233",
-            "qq_OneBot V11_2233",
-        ),
     )

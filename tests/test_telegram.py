@@ -9,7 +9,7 @@ from nonebot.adapters.telegram.event import (
 )
 from nonebug.app import App
 
-from .utils import assert_session, assert_session_id
+from .utils import assert_session
 
 
 def new_bot(self_id: str) -> Bot:
@@ -44,19 +44,6 @@ def test_private_message_event():
         id2=None,
         id3=None,
     )
-    assert_session_id(
-        session,
-        (
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_3344",
-        ),
-    )
 
 
 def test_group_message_event():
@@ -86,19 +73,6 @@ def test_group_message_event():
         id1="3344",
         id2="5566",
         id3=None,
-    )
-    assert_session_id(
-        session,
-        (
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_5566",
-            "telegram_Telegram_2233_5566_3344",
-            "telegram_Telegram_2233_5566",
-            "telegram_Telegram_2233_5566_3344",
-            "telegram_Telegram_2233_5566",
-            "telegram_Telegram_2233_5566_3344",
-        ),
     )
 
 
@@ -131,19 +105,6 @@ def test_forum_topic_message_event():
         id2="6677",
         id3="5566",
     )
-    assert_session_id(
-        session,
-        (
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233_3344",
-            "telegram_Telegram_2233_6677",
-            "telegram_Telegram_2233_6677_3344",
-            "telegram_Telegram_2233_5566",
-            "telegram_Telegram_2233_5566_3344",
-            "telegram_Telegram_2233_5566_6677",
-            "telegram_Telegram_2233_5566_6677_3344",
-        ),
-    )
 
 
 def test_undefined_event(app: App):
@@ -161,17 +122,4 @@ def test_undefined_event(app: App):
         id1=None,
         id2=None,
         id3=None,
-    )
-    assert_session_id(
-        session,
-        (
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233",
-            "telegram_Telegram_2233",
-        ),
     )

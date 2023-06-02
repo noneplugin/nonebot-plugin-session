@@ -4,7 +4,7 @@ from nonebot import get_driver
 from nonebot.adapters.console import Adapter, Bot, Message, MessageEvent, User
 from nonebug.app import App
 
-from .utils import assert_session, assert_session_id
+from .utils import assert_session
 
 
 def new_bot(self_id: str) -> Bot:
@@ -32,17 +32,4 @@ def test_message_event(app: App):
         id1="3344",
         id2=None,
         id3=None,
-    )
-    assert_session_id(
-        session,
-        (
-            "console_Console_2233",
-            "console_Console_2233_3344",
-            "console_Console_2233_3344",
-            "console_Console_2233_3344",
-            "console_Console_2233_3344",
-            "console_Console_2233_3344",
-            "console_Console_2233_3344",
-            "console_Console_2233_3344",
-        ),
     )

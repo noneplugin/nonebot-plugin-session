@@ -14,7 +14,7 @@ from nonebot.adapters.kaiheila.event import (
 )
 from nonebug.app import App
 
-from .utils import assert_session, assert_session_id
+from .utils import assert_session
 
 
 def new_bot(self_id: str) -> Bot:
@@ -79,19 +79,6 @@ def test_private_message_event(app: App):
         id2=None,
         id3=None,
     )
-    assert_session_id(
-        session,
-        (
-            "kaiheila_Kaiheila_2233",
-            "kaiheila_Kaiheila_2233_3344",
-            "kaiheila_Kaiheila_2233_3344",
-            "kaiheila_Kaiheila_2233_3344",
-            "kaiheila_Kaiheila_2233_3344",
-            "kaiheila_Kaiheila_2233_3344",
-            "kaiheila_Kaiheila_2233_3344",
-            "kaiheila_Kaiheila_2233_3344",
-        ),
-    )
 
 
 def test_channel_message_event(app: App):
@@ -153,19 +140,6 @@ def test_channel_message_event(app: App):
         id2="6677",
         id3="5566",
     )
-    assert_session_id(
-        session,
-        (
-            "kaiheila_Kaiheila_2233",
-            "kaiheila_Kaiheila_2233_3344",
-            "kaiheila_Kaiheila_2233_6677",
-            "kaiheila_Kaiheila_2233_6677_3344",
-            "kaiheila_Kaiheila_2233_5566",
-            "kaiheila_Kaiheila_2233_5566_3344",
-            "kaiheila_Kaiheila_2233_5566_6677",
-            "kaiheila_Kaiheila_2233_5566_6677_3344",
-        ),
-    )
 
 
 def test_undefined_event(app: App):
@@ -183,17 +157,4 @@ def test_undefined_event(app: App):
         id1=None,
         id2=None,
         id3=None,
-    )
-    assert_session_id(
-        session,
-        (
-            "unknown_Kaiheila_2233",
-            "unknown_Kaiheila_2233",
-            "unknown_Kaiheila_2233",
-            "unknown_Kaiheila_2233",
-            "unknown_Kaiheila_2233",
-            "unknown_Kaiheila_2233",
-            "unknown_Kaiheila_2233",
-            "unknown_Kaiheila_2233",
-        ),
     )

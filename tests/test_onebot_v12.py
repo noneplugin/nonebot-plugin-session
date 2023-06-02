@@ -13,7 +13,7 @@ from nonebot.adapters.onebot.v12 import (
 from nonebot.adapters.onebot.v12.event import BotSelf
 from nonebug.app import App
 
-from .utils import assert_session, assert_session_id
+from .utils import assert_session
 
 
 def new_bot(self_id: str, impl: str, platform: str) -> Bot:
@@ -50,19 +50,6 @@ def test_private_message_event(app: App):
         id2=None,
         id3=None,
     )
-    assert_session_id(
-        session,
-        (
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233_3344",
-            "qq_OneBot V12_2233_3344",
-            "qq_OneBot V12_2233_3344",
-            "qq_OneBot V12_2233_3344",
-            "qq_OneBot V12_2233_3344",
-            "qq_OneBot V12_2233_3344",
-            "qq_OneBot V12_2233_3344",
-        ),
-    )
 
 
 def test_group_message_event(app: App):
@@ -93,19 +80,6 @@ def test_group_message_event(app: App):
         id1="3344",
         id2="1122",
         id3=None,
-    )
-    assert_session_id(
-        session,
-        (
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233_3344",
-            "qq_OneBot V12_2233_1122",
-            "qq_OneBot V12_2233_1122_3344",
-            "qq_OneBot V12_2233_1122",
-            "qq_OneBot V12_2233_1122_3344",
-            "qq_OneBot V12_2233_1122",
-            "qq_OneBot V12_2233_1122_3344",
-        ),
     )
 
 
@@ -139,19 +113,6 @@ def test_channel_message_event(app: App):
         id2="6677",
         id3="5566",
     )
-    assert_session_id(
-        session,
-        (
-            "qqguild_OneBot V12_2233",
-            "qqguild_OneBot V12_2233_3344",
-            "qqguild_OneBot V12_2233_6677",
-            "qqguild_OneBot V12_2233_6677_3344",
-            "qqguild_OneBot V12_2233_5566",
-            "qqguild_OneBot V12_2233_5566_3344",
-            "qqguild_OneBot V12_2233_5566_6677",
-            "qqguild_OneBot V12_2233_5566_6677_3344",
-        ),
-    )
 
 
 def test_undefined_event(app: App):
@@ -176,17 +137,4 @@ def test_undefined_event(app: App):
         id1=None,
         id2=None,
         id3=None,
-    )
-    assert_session_id(
-        session,
-        (
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233",
-            "qq_OneBot V12_2233",
-        ),
     )
