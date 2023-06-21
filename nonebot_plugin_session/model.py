@@ -81,5 +81,5 @@ try:
             await db_session.refresh(session_model)
         return session_model
 
-except (ImportError, RuntimeError):
+except (ImportError, RuntimeError, ModuleNotFoundError):
     pass

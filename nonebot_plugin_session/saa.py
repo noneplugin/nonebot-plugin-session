@@ -53,5 +53,5 @@ try:
                 )
 
     Session.get_saa_target = get_saa_target
-except (ImportError, RuntimeError):
+except (ImportError, RuntimeError, ModuleNotFoundError):
     pass
