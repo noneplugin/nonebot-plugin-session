@@ -13,7 +13,11 @@ from .utils import assert_session
 
 
 def new_bot(self_id: str) -> Bot:
-    return Bot(adapter=Adapter(get_driver()), config=BotConfig(token=f"{self_id}:xxx"))
+    return Bot(
+        adapter=Adapter(get_driver()),
+        self_id=self_id,
+        config=BotConfig(token=f"{self_id}:xxx"),
+    )
 
 
 def test_private_message_event():
