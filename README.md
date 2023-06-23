@@ -11,7 +11,7 @@ _✨ [Nonebot2](https://github.com/nonebot/nonebot2) 会话信息提取与会话
 <p align="center">
   <img src="https://img.shields.io/github/license/noneplugin/nonebot-plugin-session" alt="license">
   <img src="https://img.shields.io/badge/python-3.8+-blue.svg" alt="Python">
-  <img src="https://img.shields.io/badge/nonebot-2.0.0rc1+-red.svg" alt="NoneBot">
+  <img src="https://img.shields.io/badge/nonebot-2.0.0+-red.svg" alt="NoneBot">
   <a href="https://pypi.org/project/nonebot-plugin-session">
     <img src="https://badgen.net/pypi/v/nonebot-plugin-session" alt="pypi">
   </a>
