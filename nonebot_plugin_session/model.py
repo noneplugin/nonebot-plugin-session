@@ -8,7 +8,7 @@ try:
     require("nonebot_plugin_datastore")
 
     from nonebot_plugin_datastore import get_plugin_data
-    from sqlalchemy import Enum, String, UniqueConstraint, select
+    from sqlalchemy import String, UniqueConstraint, select
     from sqlalchemy.ext.asyncio import AsyncSession
     from sqlalchemy.orm import Mapped, mapped_column
 
@@ -32,7 +32,7 @@ try:
         bot_id: Mapped[str] = mapped_column(String(64))
         bot_type: Mapped[str] = mapped_column(String(32))
         platform: Mapped[str] = mapped_column(String(32))
-        level: Mapped[SessionLevel] = mapped_column(Enum(SessionLevel))
+        level: Mapped[str] = mapped_column(String(6))
         id1: Mapped[Optional[str]] = mapped_column(String(64))
         id2: Mapped[Optional[str]] = mapped_column(String(64))
         id3: Mapped[Optional[str]] = mapped_column(String(64))
@@ -43,7 +43,7 @@ try:
                 bot_id=self.bot_id,
                 bot_type=self.bot_type,
                 platform=self.platform,
-                level=self.level,
+                level=SessionLevel(self.level),
                 id1=self.id1,
                 id2=self.id2,
                 id3=self.id3,

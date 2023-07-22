@@ -1,7 +1,8 @@
-from enum import Enum, IntEnum
+from enum import IntEnum
 from typing import TYPE_CHECKING, List, Optional, Union
 
 from pydantic import BaseModel
+from strenum import StrEnum
 
 if TYPE_CHECKING:
     try:
@@ -10,11 +11,11 @@ if TYPE_CHECKING:
         pass
 
 
-class SessionLevel(Enum):
-    LEVEL0 = 0
-    LEVEL1 = 1
-    LEVEL2 = 2
-    LEVEL3 = 3
+class SessionLevel(StrEnum):
+    LEVEL0 = "LEVEL0"
+    LEVEL1 = "LEVEL1"
+    LEVEL2 = "LEVEL2"
+    LEVEL3 = "LEVEL3"
 
 
 class SessionIdType(IntEnum):
