@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import List, Optional, Union
 
-from .session import Session, SessionLevel
+from .session import Session, SessionIdType, SessionLevel
 
 try:
     from nonebot import require
@@ -10,7 +10,9 @@ try:
     from nonebot_plugin_datastore import get_plugin_data
     from sqlalchemy import String, UniqueConstraint, select
     from sqlalchemy.ext.asyncio import AsyncSession
+    from sqlalchemy.ext.hybrid import hybrid_method
     from sqlalchemy.orm import Mapped, mapped_column
+    from sqlalchemy.sql import ColumnElement
 
     plugin_data = get_plugin_data()
     plugin_data.use_global_registry()
@@ -50,6 +52,45 @@ try:
                 id2=self.id2,
                 id3=self.id3,
             )
+
+        @hybrid_method
+        def filter_statement(
+            self,
+            id_type: Union[int, SessionIdType],
+            *,
+            include_platform: bool = True,
+            include_bot_type: bool = True,
+            include_bot_id: bool = True,
+        ) -> List[ColumnElement[bool]]:
+            id_type = min(max(id_type, 0), SessionIdType.GROUP_USER)
+
+            if self.level == SessionLevel.LEVEL0:
+                id_type = 0
+            elif self.level == SessionLevel.LEVEL1:
+                id_type = int(bool(id_type))
+            elif self.level == SessionLevel.LEVEL2:
+                id_type = (id_type & 1) | (int(bool(id_type >> 1)) << 1)
+            elif self.level == SessionLevel.LEVEL3:
+                pass
+
+            include_id1 = bool(id_type & 1)
+            include_id2 = bool((id_type >> 1) & 1)
+            include_id3 = bool((id_type >> 2) & 1)
+
+            whereclause: List[ColumnElement[bool]] = []
+            if include_bot_id:
+                whereclause.append(SessionModel.bot_id == self.bot_id)
+            if include_bot_type:
+                whereclause.append(SessionModel.bot_type == self.bot_type)
+            if include_platform:
+                whereclause.append(SessionModel.platform == self.platform)
+            if include_id1:
+                whereclause.append(SessionModel.id1 == self.id1)
+            if include_id2:
+                whereclause.append(SessionModel.id2 == self.id2)
+            if include_id3:
+                whereclause.append(SessionModel.id3 == self.id3)
+            return whereclause
 
     async def get_or_add_session_model(
         session: Session, db_session: AsyncSession, commit: bool = True
