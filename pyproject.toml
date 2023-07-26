@@ -12,7 +12,7 @@ repository = "https://github.com/noneplugin/nonebot-plugin-session"
 python = "^3.8"
 nonebot2 = { version = "^2.0.0", extras = ["fastapi"] }
 strenum = "^0.4.8"
-nonebot-plugin-datastore = { version = "^1.0.0", optional = true }
+nonebot-plugin-datastore = { git = "https://github.com/he0119/nonebot-plugin-datastore.git", rev = "254165a", optional = true }
 nonebot-plugin-send-anything-anywhere = { version = "^0.2.7", optional = true }
 
 [tool.poetry.group.dev.dependencies]
