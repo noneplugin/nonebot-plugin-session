@@ -1292,31 +1292,27 @@ nonebot2 = ">=2.0.0b1,<3.0.0"
 
 [[package]]
 name = "nonebot-plugin-datastore"
-version = "1.0.0"
+version = "1.1.0"
 description = "适用于 Nonebot2 的数据存储插件"
 category = "main"
 optional = true
-python-versions = "^3.8"
-files = []
-develop = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "nonebot_plugin_datastore-1.1.0-py3-none-any.whl", hash = "sha256:8ca11b6da0f1ff09cf0effe9f1baf3475874ec1c7c8ffe0053bb21524112c95e"},
+    {file = "nonebot_plugin_datastore-1.1.0.tar.gz", hash = "sha256:1e7fdba17fba3986467a98e1938d3e2ad65767d548146a31b7ded340d050a22c"},
+]
 
 [package.dependencies]
-alembic = "^1.9.1"
-nonebot-plugin-localstore = ">=0.2.0,!=0.3.0,!=0.4.0,<0.6.0"
-nonebot2 = {version = "^2.0.0", extras = ["httpx"]}
-sqlalchemy = {version = "^2.0.0", extras = ["aiosqlite"]}
+alembic = ">=1.9.1,<2.0.0"
+nonebot-plugin-localstore = ">=0.2.0,<0.3.0 || >0.3.0,<0.4.0 || >0.4.0"
+nonebot2 = {version = ">=2.0.0,<3.0.0", extras = ["httpx"]}
+sqlalchemy = {version = ">=2.0.0,<3.0.0", extras = ["aiosqlite"]}
 
 [package.extras]
-all = ["anyio (>=3.6)", "click (>=8.0)", "pyyaml (>=6.0,<7.0)", "rtoml (>=0.9.0,<0.10.0)", "typing-extensions (>=4.4)"]
+all = ["anyio (>=3.6)", "click (>=8.0)", "pyyaml (>=6.0)", "rtoml (>=0.9.0)", "typing-extensions (>=4.4)"]
 cli = ["anyio (>=3.6)", "click (>=8.0)", "typing-extensions (>=4.4)"]
-toml = ["rtoml (>=0.9.0,<0.10.0)"]
-yaml = ["pyyaml (>=6.0,<7.0)"]
-
-[package.source]
-type = "git"
-url = "https://github.com/he0119/nonebot-plugin-datastore.git"
-reference = "254165a"
-resolved_reference = "254165a827f05a9558c046e2fd199b8f5f2924b1"
+toml = ["rtoml (>=0.9.0)"]
+yaml = ["pyyaml (>=6.0)"]
 
 [[package]]
 name = "nonebot-plugin-localstore"
@@ -2300,4 +2296,4 @@ saa = ["nonebot-plugin-send-anything-anywhere"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "77787483875aa1dd75522e8ea4ec000c299e5a3c1a9c71d43870ff3815f2504b"
+content-hash = "7795cd4212bf2797d76cbc30cfae296173353b81f8a9bd20c8c76967c08be4b2"
