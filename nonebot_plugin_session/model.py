@@ -10,7 +10,6 @@ try:
     from nonebot_plugin_datastore import get_plugin_data
     from sqlalchemy import String, UniqueConstraint, select
     from sqlalchemy.ext.asyncio import AsyncSession
-    from sqlalchemy.ext.hybrid import hybrid_method
     from sqlalchemy.orm import Mapped, mapped_column
     from sqlalchemy.sql import ColumnElement
 
@@ -53,10 +52,8 @@ try:
                 id3=self.id3,
             )
 
-        @hybrid_method
-        @classmethod
+        @staticmethod
         def filter_statement(
-            cls,
             session: Session,
             id_type: Union[int, SessionIdType],
             *,
