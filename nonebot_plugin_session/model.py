@@ -54,8 +54,10 @@ try:
             )
 
         @hybrid_method
+        @classmethod
         def filter_statement(
-            self,
+            cls,
+            session: Session,
             id_type: Union[int, SessionIdType],
             *,
             include_platform: bool = True,
@@ -64,13 +66,13 @@ try:
         ) -> List[ColumnElement[bool]]:
             id_type = min(max(id_type, 0), SessionIdType.GROUP_USER)
 
-            if self.level == SessionLevel.LEVEL0:
+            if session.level == SessionLevel.LEVEL0:
                 id_type = 0
-            elif self.level == SessionLevel.LEVEL1:
+            elif session.level == SessionLevel.LEVEL1:
                 id_type = int(bool(id_type))
-            elif self.level == SessionLevel.LEVEL2:
+            elif session.level == SessionLevel.LEVEL2:
                 id_type = (id_type & 1) | (int(bool(id_type >> 1)) << 1)
-            elif self.level == SessionLevel.LEVEL3:
+            elif session.level == SessionLevel.LEVEL3:
                 pass
 
             include_id1 = bool(id_type & 1)
@@ -79,17 +81,17 @@ try:
 
             whereclause: List[ColumnElement[bool]] = []
             if include_bot_id:
-                whereclause.append(SessionModel.bot_id == self.bot_id)
+                whereclause.append(SessionModel.bot_id == session.bot_id)
             if include_bot_type:
-                whereclause.append(SessionModel.bot_type == self.bot_type)
+                whereclause.append(SessionModel.bot_type == session.bot_type)
             if include_platform:
-                whereclause.append(SessionModel.platform == self.platform)
+                whereclause.append(SessionModel.platform == session.platform)
             if include_id1:
-                whereclause.append(SessionModel.id1 == self.id1)
+                whereclause.append(SessionModel.id1 == session.id1)
             if include_id2:
-                whereclause.append(SessionModel.id2 == self.id2)
+                whereclause.append(SessionModel.id2 == session.id2)
             if include_id3:
-                whereclause.append(SessionModel.id3 == self.id3)
+                whereclause.append(SessionModel.id3 == session.id3)
             return whereclause
 
     async def get_or_add_session_model(
