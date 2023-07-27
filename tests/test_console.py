@@ -1,8 +1,9 @@
 from datetime import datetime
 
 from nonebot import get_driver
-from nonebot.adapters.console import Adapter, Bot, Message, MessageEvent, User
+from nonebot.adapters.console import Adapter, Bot, Message, MessageEvent
 from nonebug.app import App
+from nonechat.info import User
 
 from .utils import assert_session
 
