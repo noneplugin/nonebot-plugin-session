@@ -10,6 +10,8 @@ try:
 
     from nonebot_plugin_saa import (
         PlatformTarget,
+        TargetFeishuGroup,
+        TargetFeishuPrivate,
         TargetKaiheilaChannel,
         TargetKaiheilaPrivate,
         TargetOB12Unknow,
@@ -42,14 +44,27 @@ try:
             if self.level == SessionLevel.LEVEL3 and self.id2:
                 return TargetKaiheilaChannel(channel_id=self.id2)
 
+        elif self.platform == SupportedPlatform.feishu:
+            if self.level == SessionLevel.LEVEL1 and self.id1:
+                return TargetFeishuPrivate(open_id=self.id1)
+            elif self.level == SessionLevel.LEVEL2 and self.id2:
+                return TargetFeishuGroup(chat_id=self.id2)
+
         if self.bot_type == SupportedAdapter.onebot_v12:
             if self.level == SessionLevel.LEVEL1:
-                return TargetOB12Unknow(detail_type="private", user_id=self.id1)
+                return TargetOB12Unknow(
+                    platform=self.platform, detail_type="private", user_id=self.id1
+                )
             elif self.level == SessionLevel.LEVEL2:
-                return TargetOB12Unknow(detail_type="group", group_id=self.id2)
+                return TargetOB12Unknow(
+                    platform=self.platform, detail_type="group", group_id=self.id2
+                )
             elif self.level == SessionLevel.LEVEL3:
                 return TargetOB12Unknow(
-                    detail_type="channel", channel_id=self.id2, guild_id=self.id3
+                    platform=self.platform,
+                    detail_type="channel",
+                    channel_id=self.id2,
+                    guild_id=self.id3,
                 )
 
     Session.get_saa_target = get_saa_target
