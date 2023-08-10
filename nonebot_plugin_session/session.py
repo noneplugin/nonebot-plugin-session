@@ -38,9 +38,9 @@ class Session(BaseModel):
     bot_type: str
     platform: str
     level: SessionLevel
-    id1: Optional[str]
-    id2: Optional[str]
-    id3: Optional[str]
+    id1: Optional[str] = None
+    id2: Optional[str] = None
+    id3: Optional[str] = None
 
     def get_id(
         self,
