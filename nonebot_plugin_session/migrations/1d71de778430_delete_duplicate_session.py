@@ -24,7 +24,9 @@ def upgrade() -> None:
 
     session_model_update_set = set()
     with Session(op.get_bind()) as session:
-        session_models = session.scalars(sa.select(SessionModel)).all()
+        session_models = session.scalars(
+            sa.select(SessionModel).order_by(SessionModel.id)
+        ).all()
         for session_model in session_models:
             # 尝试删除重复的 session
             session_data = (
