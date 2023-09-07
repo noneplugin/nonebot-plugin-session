@@ -1,4 +1,4 @@
-from typing import List, Optional, Union
+from typing import List, Union
 
 from .session import Session, SessionIdType, SessionLevel
 
@@ -118,6 +118,7 @@ try:
             id3=session.id3 or "",
         )
         if commit:
+            # 并发时可能会出现重复插入的情况
             try:
                 async with db_session.begin_nested():
                     db_session.add(session_model)
