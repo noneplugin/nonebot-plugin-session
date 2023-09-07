@@ -117,13 +117,16 @@ try:
             id2=session.id2 or "",
             id3=session.id3 or "",
         )
+        # 并发时可能会出现重复插入的情况
+        try:
+            async with db_session.begin_nested():
+                db_session.add(session_model)
+        except exc.IntegrityError:
+            session_model = (await db_session.scalars(statement)).one()
+
         if commit:
-            # 并发时可能会出现重复插入的情况
-            try:
-                async with db_session.begin_nested():
-                    db_session.add(session_model)
-            except exc.IntegrityError:
-                session_model = (await db_session.scalars(statement)).one()
+            await db_session.commit()
+            await db_session.refresh(session_model)
 
         return session_model
 
