@@ -36,9 +36,9 @@ try:
         bot_type: Mapped[str] = mapped_column(String(32))
         platform: Mapped[str] = mapped_column(String(32))
         level: Mapped[str] = mapped_column(String(6))
-        id1: Mapped[Optional[str]] = mapped_column(String(64))
-        id2: Mapped[Optional[str]] = mapped_column(String(64))
-        id3: Mapped[Optional[str]] = mapped_column(String(64))
+        id1: Mapped[str] = mapped_column(String(64))
+        id2: Mapped[str] = mapped_column(String(64))
+        id3: Mapped[str] = mapped_column(String(64))
 
         @property
         def session(self) -> Session:
@@ -47,9 +47,9 @@ try:
                 bot_type=self.bot_type,
                 platform=self.platform,
                 level=SessionLevel(self.level),
-                id1=self.id1,
-                id2=self.id2,
-                id3=self.id3,
+                id1=self.id1 if self.id1 else None,
+                id2=self.id2 if self.id2 else None,
+                id3=self.id3 if self.id3 else None,
             )
 
         @staticmethod
@@ -84,11 +84,11 @@ try:
             if include_platform:
                 whereclause.append(SessionModel.platform == session.platform)
             if include_id1:
-                whereclause.append(SessionModel.id1 == session.id1)
+                whereclause.append(SessionModel.id1 == (session.id1 or ""))
             if include_id2:
-                whereclause.append(SessionModel.id2 == session.id2)
+                whereclause.append(SessionModel.id2 == (session.id2 or ""))
             if include_id3:
-                whereclause.append(SessionModel.id3 == session.id3)
+                whereclause.append(SessionModel.id3 == (session.id3 or ""))
             return whereclause
 
     async def get_or_add_session_model(
@@ -100,9 +100,9 @@ try:
             .where(SessionModel.bot_type == session.bot_type)
             .where(SessionModel.platform == session.platform)
             .where(SessionModel.level == session.level)
-            .where(SessionModel.id1 == session.id1)
-            .where(SessionModel.id2 == session.id2)
-            .where(SessionModel.id3 == session.id3)
+            .where(SessionModel.id1 == (session.id1 or ""))
+            .where(SessionModel.id2 == (session.id2 or ""))
+            .where(SessionModel.id3 == (session.id3 or ""))
         )
         results = await db_session.scalars(statement)
         if session_model := results.one_or_none():
@@ -113,9 +113,9 @@ try:
             bot_type=session.bot_type,
             platform=session.platform,
             level=session.level,
-            id1=session.id1,
-            id2=session.id2,
-            id3=session.id3,
+            id1=session.id1 or "",
+            id2=session.id2 or "",
+            id3=session.id3 or "",
         )
         db_session.add(session_model)
         if commit:
