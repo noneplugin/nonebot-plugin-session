@@ -8,7 +8,7 @@ try:
     require("nonebot_plugin_datastore")
 
     from nonebot_plugin_datastore import get_plugin_data
-    from sqlalchemy import String, UniqueConstraint, select
+    from sqlalchemy import String, UniqueConstraint, exc, select
     from sqlalchemy.ext.asyncio import AsyncSession
     from sqlalchemy.orm import Mapped, mapped_column
     from sqlalchemy.sql import ColumnElement
@@ -117,10 +117,13 @@ try:
             id2=session.id2 or "",
             id3=session.id3 or "",
         )
-        db_session.add(session_model)
         if commit:
-            await db_session.commit()
-            await db_session.refresh(session_model)
+            try:
+                async with db_session.begin_nested():
+                    db_session.add(session_model)
+            except exc.IntegrityError:
+                session_model = (await db_session.scalars(statement)).one()
+
         return session_model
 
 except (ImportError, RuntimeError, ModuleNotFoundError):
