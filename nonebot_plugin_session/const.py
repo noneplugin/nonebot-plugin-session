@@ -9,6 +9,7 @@ class SupportedAdapter(StrEnum):
     qqguild = "QQ Guild"
     telegram = "Telegram"
     feishu = "Feishu"
+    red = "RedProtocol"
 
 
 class SupportedPlatform(StrEnum):
