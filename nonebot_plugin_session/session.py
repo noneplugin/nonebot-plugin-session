@@ -1,14 +1,8 @@
 from enum import IntEnum
-from typing import TYPE_CHECKING, List, Optional, Union
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
 from strenum import StrEnum
-
-if TYPE_CHECKING:
-    try:
-        from nonebot_plugin_saa import PlatformTarget
-    except ImportError:
-        pass
 
 
 class SessionLevel(StrEnum):
@@ -81,6 +75,3 @@ class Session(BaseModel):
             parts.append(self.id1 or "")
 
         return seperator.join(parts)
-
-    def get_saa_target(self) -> Optional["PlatformTarget"]:
-        raise NotImplementedError
