@@ -1,8 +1,8 @@
 from nonebot import get_driver
-from nonebot.adapters.red import Adapter, Bot
+from nonebot.adapters.red import Adapter, Bot, Message
+from nonebot.adapters.red.api.model import ChatType, MsgType, RoleInfo
 from nonebot.adapters.red.config import BotInfo
 from nonebot.adapters.red.event import GroupMessageEvent, PrivateMessageEvent
-from nonebot.adapters.red.model import RoleInfo
 from nonebug.app import App
 
 from .utils import assert_session
@@ -20,13 +20,16 @@ def test_private_message_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
+    message = Message("test")
     event = PrivateMessageEvent(
+        message=message,
+        original_message=message,
         msgId="7272944767457625851",
         msgRandom="196942265",
         msgSeq="103",
         cntSeq="0",
-        chatType=1,
-        msgType=2,
+        chatType=ChatType.FRIEND,
+        msgType=MsgType.normal,
         subMsgType=1,
         sendType=0,
         senderUid="4321",
@@ -88,13 +91,16 @@ def test_group_message_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
+    message = Message("test")
     event = GroupMessageEvent(
+        message=message,
+        original_message=message,
         msgId="7272944513098472702",
         msgRandom="1526531828",
         msgSeq="831",
         cntSeq="0",
-        chatType=2,
-        msgType=2,
+        chatType=ChatType.GROUP,
+        msgType=MsgType.normal,
         subMsgType=1,
         sendType=0,
         senderUid="4321",

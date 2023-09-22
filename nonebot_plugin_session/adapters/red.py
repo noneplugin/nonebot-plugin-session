@@ -6,7 +6,13 @@ from ..session import SessionLevel
 
 try:
     from nonebot.adapters.red import Bot
-    from nonebot.adapters.red.event import Event, GroupMessageEvent, PrivateMessageEvent
+    from nonebot.adapters.red.api.model import ChatType
+    from nonebot.adapters.red.event import (
+        Event,
+        GroupMessageEvent,
+        NoticeEvent,
+        PrivateMessageEvent,
+    )
 
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
@@ -20,11 +26,20 @@ try:
             elif isinstance(self.event, GroupMessageEvent):
                 return SessionLevel.LEVEL2
 
+            elif isinstance(self.event, NoticeEvent):
+                if self.event.chatType == ChatType.FRIEND:
+                    return SessionLevel.LEVEL1
+                elif self.event.chatType == ChatType.GROUP:
+                    return SessionLevel.LEVEL2
+
             return SessionLevel.LEVEL0
 
         def extract_id2(self) -> Optional[str]:
-            if isinstance(self.event, GroupMessageEvent):
-                return self.event.peerUid
+            if isinstance(self.event, GroupMessageEvent) or (
+                isinstance(self.event, NoticeEvent)
+                and self.event.chatType == ChatType.GROUP
+            ):
+                return self.event.peerUin or self.event.peerUid
 
 except ImportError:
     pass
