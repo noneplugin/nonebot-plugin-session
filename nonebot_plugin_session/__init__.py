@@ -1,7 +1,7 @@
 from nonebot.plugin import PluginMetadata
 
 from . import adapters
-from .extractor import SessionExtractor, SessionId, extract_session
+from .extractor import EventSession, SessionExtractor, SessionId, extract_session
 from .session import Session, SessionIdType, SessionLevel
 
 __plugin_meta__ = PluginMetadata(
