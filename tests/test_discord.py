@@ -77,7 +77,7 @@ def test_direct_message_create_event(app: App):
     event = DirectMessageCreateEvent.parse_obj(
         {
             "id": 1234,
-            "channel_id": 3344,
+            "channel_id": 5566,
             "author": User(
                 **{
                     "id": 3344,
@@ -114,7 +114,7 @@ def test_direct_message_create_event(app: App):
         platform="discord",
         level=SessionLevel.LEVEL1,
         id1="3344",
-        id2=None,
+        id2="5566",
         id3=None,
     )
 

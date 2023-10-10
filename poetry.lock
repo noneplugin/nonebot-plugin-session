@@ -782,14 +782,14 @@ nonechat = ">=0.2.0,<1.0.0"
 
 [[package]]
 name = "nonebot-adapter-discord"
-version = "0.1.0b3"
+version = "0.1.0b4"
 description = "Discord adapter for nonebot2"
 category = "dev"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "nonebot_adapter_discord-0.1.0b3-py3-none-any.whl", hash = "sha256:c412a1581b6ad1f25c91f08acc3b25d88f8532e14e483d965723fe7ac3d83568"},
-    {file = "nonebot_adapter_discord-0.1.0b3.tar.gz", hash = "sha256:b27200dda3b8e9fc94ee8d72804c01f0a217656772dc71a59b776ebad0975db7"},
+    {file = "nonebot_adapter_discord-0.1.0b4-py3-none-any.whl", hash = "sha256:c67f089cf6d3cb559a803b8e910e23c2acbf992e624b6a384b3570f1b2f2279e"},
+    {file = "nonebot_adapter_discord-0.1.0b4.tar.gz", hash = "sha256:010eff96531e46a1aa82b684ab657a357edfe83b7b81068da3661fa6e85e741e"},
 ]
 
 [package.dependencies]
@@ -863,19 +863,22 @@ pydantic = ">=1.9.0,<2.0.0"
 
 [[package]]
 name = "nonebot-adapter-red"
-version = "0.4.2"
+version = "0.5.2"
 description = "Red Protocol Adapter for Nonebot2"
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "nonebot_adapter_red-0.4.2-py3-none-any.whl", hash = "sha256:f9ab53cb3d7fb53726b738e13b8242bc9a5243a4e5e48385473951f66b7eca8b"},
-    {file = "nonebot_adapter_red-0.4.2.tar.gz", hash = "sha256:81f98dced6adc0cd835327cc9b0aa07ff4ced32df8ed6da873342b1e6ffc1744"},
+    {file = "nonebot_adapter_red-0.5.2-py3-none-any.whl", hash = "sha256:fb0743411836f2d3351575e3f75f78c80fb6c8c0fe1b71256369cc737fe595ad"},
+    {file = "nonebot_adapter_red-0.5.2.tar.gz", hash = "sha256:11467b509ef75f7d920a0fe870287a9fea6fbe3a7ce6903eee287f63d893019d"},
 ]
 
 [package.dependencies]
 nonebot2 = ">=2.0.1"
 packaging = ">=23.1"
+
+[package.extras]
+auto-detect = ["PyYAML"]
 
 [[package]]
 name = "nonebot-adapter-telegram"
@@ -1736,4 +1739,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "6b983cad30e65279e0d2fe075ded86977c9a6c982352774eb7b79563a00917ee"
+content-hash = "6add1957347662ff7adac255105f38d096ec5ee8cbc06871aef4f4000df774d6"

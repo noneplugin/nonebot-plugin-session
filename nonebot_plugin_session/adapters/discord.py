@@ -81,6 +81,15 @@ try:
                     GuildMessageReactionRemoveEvent,
                     GuildMessageUpdateEvent,
                     GuildTypingStartEvent,
+                    DirectMessageCreateEvent,
+                    DirectMessageDeleteBulkEvent,
+                    DirectMessageDeleteEvent,
+                    DirectMessageUpdateEvent,
+                    DirectMessageReactionAddEvent,
+                    DirectMessageReactionRemoveAllEvent,
+                    DirectMessageReactionRemoveEvent,
+                    DirectMessageReactionRemoveEmojiEvent,
+                    DirectTypingStartEvent,
                 ),
             ):
                 return str(self.event.channel_id)
