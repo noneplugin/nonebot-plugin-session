@@ -20,21 +20,24 @@ _✨ [Nonebot2](https://github.com/nonebot/nonebot2) 会话信息提取与会话
 </div>
 
 
-- 这个插件可以做什么？
+本插件提供了一个统一的会话模型 `Session`，可以从不同适配器的 `Bot` 和 `Event` 中提取与会话相关的属性
 
-本插件提供了一个统一的会话模型 `Session`，
-可以从不同适配器的 `Bot` 和 `Event` 中提取与会话相关的
-“平台”、“会话等级”（单用户、单级群组、两级群组）、“目标 id” 等属性；
+具体定义如下：
 
-同时提供了获取会话 id 的函数，可以按照不同的类型获取会话id，方便不同场景下的使用
+| 属性 | 类型 |含义 | 备注 |
+| --- | --- | --- | --- |
+| `bot_id` | `str` | 机器人 id |  |
+| `bot_type` | `str` | 机器人类型（适配器名称） |  |
+| `platform` | `str` | 平台 | 未知平台用 `unknown` 表示 |
+| `level` | `IntEnum` | 会话等级 | 目前分为 LEVEL0（无用户）、LEVEL1（单用户）、LEVEL2（单级群组）、LEVEL3（两级群组） 四类 |
+| `id1` | `str` | 1 级 id | 通常为 `user_id` |
+| `id2` | `str` | 2 级 id | 通常为 单级群组中的 `group_id`，两级群组中的 `channel_id` |
+| `id3` | `str` | 3 级 id | 通常为 两级群组中的 `guild_id` |
 
-- 这个插件解决了什么问题？
 
-Nonebot 适配器基类中提供了 `get_session_id` 函数用于获取会话 id，
-但这一结果通常是 用户 id、群组 id 的组合，属于 “用户级别” 的 id，
-但在很多插件中，需要用到 “群组级别” 的会话 id，如词云、词库等等
+同时，本插件提供了获取会话 id 的函数，可以按照不同的类型获取会话id，方便不同场景下的使用
 
-本插件可以为不同适配器提供一个统一的、可选级别的会话 id 定义方式
+Nonebot 适配器基类中也提供了 `get_session_id` 函数，但通常是 用户 id、群组 id 的组合，属于 “用户级别” 的 id，很多插件中需要用到不同级别的会话 id，如词云、词库等等
 
 
 ### 安装
@@ -54,7 +57,7 @@ pip install nonebot_plugin_session
 ### 使用
 
 
-获取 `Session`：
+#### 获取 `Session`：
 
 ```python
 from nonebot_plugin_session import extract_session
@@ -64,43 +67,36 @@ async def handle(bot: Bot, event: Event):
     session = extract_session(bot, event)
 ```
 
+或使用依赖注入的形式：
 
-获取 `session id`：
+```python
+from nonebot_plugin_session import EventSession
+
+@matcher.handle()
+async def handle(session: EventSession):
+    ...
+```
+
+
+#### 获取 `session id`：
+
+```python
+from nonebot_plugin_session import extract_session, SessionIdType
+
+@matcher.handle()
+async def handle(bot: Bot, event: Event):
+    session = extract_session(bot, event)
+    session_id = session.get_id(SessionIdType.GROUP)  # 获取 “群组级别” 的 session id
+```
+
+或使用依赖注入的形式：
 
 ```python
 from nonebot_plugin_session import SessionId, SessionIdType
 
 @matcher.handle()
 async def handle(session_id: str = SessionId(SessionIdType.GROUP)):
-    # 获取 “群组级别” 的 session id
     ...
-```
-
-
-将 `Session` 存至数据库中（需要安装 [nonebot-plugin-datastore](https://github.com/he0119/nonebot-plugin-datastore) 插件）
-
-```python
-from nonebot_plugin_datastore import create_session
-from nonebot_plugin_session import extract_session
-from nonebot_plugin_session.model import get_or_add_session_model
-
-@matcher.handle()
-async def handle(bot: Bot, event: Event):
-    session = extract_session(bot, event)
-    async with create_session() as db_session:
-        session_model = await get_or_add_session_model(session, db_session)  # 可关联其他表用于筛选等
-```
-
-
-从 `Session` 中获取 `saa` 的 `PlatformTarget` 对象用于发送（需要安装 [nonebot-plugin-send-anything-anywhere](https://github.com/felinae98/nonebot-plugin-send-anything-anywhere) 插件）
-
-```python
-from nonebot_plugin_session import extract_session
-
-@matcher.handle()
-async def handle(bot: Bot, event: Event):
-    session = extract_session(bot, event)
-    target = session.get_saa_target()  # 用于发送
 ```
 
 
@@ -120,9 +116,21 @@ async def handle(bot: Bot, event: Event):
 
 ### 支持的 adapter
 
-| OneBot v11 | OneBot v12 | Console | Kaiheila | QQ Guild | Telegram | Feishu |
-| :--------: | :--------: | :-----: | :------: | :------: | :------: | :----: |
-|     ✅     |     ✅    |    ✅   |   ✅    |    ✅    |    ✅   |   ✅   |
+- [x] OneBot v11
+- [x] OneBot v12
+- [x] Console
+- [x] Kaiheila
+- [x] QQ Guild
+- [x] Telegram
+- [x] Feishu
+- [x] RedProtocol
+- [x] Discord
+
+
+### 相关插件
+
+- [nonebot-plugin-session-orm](https://github.com/noneplugin/nonebot-plugin-session-orm) 为 session 提供数据库模型及存取方法
+- [nonebot-plugin-session-saa](https://github.com/noneplugin/nonebot-plugin-session-saa) 提供从 session 获取 [saa](https://github.com/MountainDash/nonebot-plugin-send-anything-anywhere) 发送对象 [PlatformTarget](https://github.com/MountainDash/nonebot-plugin-send-anything-anywhere/blob/main/nonebot_plugin_saa/utils/platform_send_target.py) 的方法
 
 
 ### 鸣谢
