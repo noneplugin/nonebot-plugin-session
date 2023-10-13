@@ -2,6 +2,7 @@ from typing import Generic, List, NamedTuple, Optional, Type, TypeVar, Union
 
 from nonebot.adapters import Bot, Event
 from nonebot.params import Depends
+from typing_extensions import Annotated
 
 from .const import SupportedPlatform
 from .session import Session, SessionIdType, SessionLevel
@@ -75,6 +76,9 @@ def extract_session(bot: Bot, event: Event) -> Session:
         ):
             return extractor_tuple.extractor(bot, event).extract()
     return SessionExtractor(bot, event).extract()
+
+
+EventSession = Annotated[Session, Depends(extract_session)]
 
 
 def SessionId(

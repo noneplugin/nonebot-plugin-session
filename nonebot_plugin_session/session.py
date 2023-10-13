@@ -1,21 +1,18 @@
 from enum import IntEnum
-from typing import TYPE_CHECKING, List, Optional, Union
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
-from strenum import StrEnum
-
-if TYPE_CHECKING:
-    try:
-        from nonebot_plugin_saa import PlatformTarget
-    except ImportError:
-        pass
 
 
-class SessionLevel(StrEnum):
-    LEVEL0 = "LEVEL0"
-    LEVEL1 = "LEVEL1"
-    LEVEL2 = "LEVEL2"
-    LEVEL3 = "LEVEL3"
+class SessionLevel(IntEnum):
+    LEVEL0 = 0
+    LEVEL1 = 1
+    LEVEL2 = 2
+    LEVEL3 = 3
+    NONE = 0
+    PRIVATE = 1
+    GROUP = 2
+    CHANNEL = 3
 
 
 class SessionIdType(IntEnum):
@@ -81,6 +78,3 @@ class Session(BaseModel):
             parts.append(self.id1 or "")
 
         return seperator.join(parts)
-
-    def get_saa_target(self) -> Optional["PlatformTarget"]:
-        raise NotImplementedError
