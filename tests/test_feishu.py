@@ -3,20 +3,22 @@ from nonebot.adapters.feishu import (
     Adapter,
     Bot,
     EventHeader,
-    GroupEventMessage,
     GroupMessageEvent,
     GroupMessageEventDetail,
-    MessageReader,
     MessageReadEvent,
     MessageReadEventDetail,
-    PrivateEventMessage,
     PrivateMessageEvent,
     PrivateMessageEventDetail,
-    Sender,
     UserId,
 )
 from nonebot.adapters.feishu.bot import BotInfo
 from nonebot.adapters.feishu.config import BotConfig
+from nonebot.adapters.feishu.models import (
+    GroupEventMessage,
+    MessageReader,
+    PrivateEventMessage,
+    Sender,
+)
 from nonebug.app import App
 
 from .utils import assert_session
