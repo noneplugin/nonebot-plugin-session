@@ -20,7 +20,22 @@ try:
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
         def extract_platform(self) -> str:
-            return SupportedPlatform.qq
+            if isinstance(
+                self.event, (GroupAtMessageCreateEvent, C2CMessageCreateEvent)
+            ):
+                return SupportedPlatform.qq
+            elif isinstance(
+                self.event,
+                (
+                    MessageAuditEvent,
+                    MessageReactionEvent,
+                    MessageCreateEvent,
+                    AtMessageCreateEvent,
+                ),
+            ):
+                return SupportedPlatform.qqguild
+
+            return SupportedPlatform.unknown
 
         def extract_level(self) -> SessionLevel:
             if isinstance(
