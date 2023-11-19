@@ -31,6 +31,7 @@ try:
                     MessageReactionEvent,
                     MessageCreateEvent,
                     AtMessageCreateEvent,
+                    DirectMessageCreateEvent,
                 ),
             ):
                 return SupportedPlatform.qqguild
@@ -67,6 +68,7 @@ try:
                     MessageReactionEvent,
                     MessageCreateEvent,
                     AtMessageCreateEvent,
+                    DirectMessageCreateEvent,
                 ),
             ):
                 return self.event.channel_id
@@ -79,6 +81,7 @@ try:
                     MessageReactionEvent,
                     MessageCreateEvent,
                     AtMessageCreateEvent,
+                    DirectMessageCreateEvent,
                 ),
             ):
                 return self.event.guild_id

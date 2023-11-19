@@ -5,7 +5,7 @@ from nonebug import NONEBOT_INIT_KWARGS, App
 
 def pytest_configure(config: pytest.Config) -> None:
     config.stash[NONEBOT_INIT_KWARGS] = {
-        "driver": "~fastapi+~websockets",
+        "driver": "~fastapi+~websockets+~httpx",
     }
 
 
