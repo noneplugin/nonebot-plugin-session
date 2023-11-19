@@ -33,6 +33,9 @@ nonebot-adapter-telegram = "^0.1.0b14"
 nonebot-adapter-feishu = "^2.1.1"
 nonebot-adapter-red = "^0.5.2"
 nonebot-adapter-discord = "^0.1.0b4"
+nonebot-adapter-satori = "^0.8.0"
+nonebot-adapter-qq = "^1.1.1"
+nonebot-adapter-villa = "^1.2.1"
 
 [tool.nonebot]
 plugins = ["nonebot_plugin_session"]

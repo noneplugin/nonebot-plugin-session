@@ -5,6 +5,7 @@ from . import (
     kaiheila,
     onebot_v11,
     onebot_v12,
+    qq,
     qqguild,
     red,
     telegram,
