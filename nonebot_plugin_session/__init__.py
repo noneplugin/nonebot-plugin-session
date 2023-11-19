@@ -20,5 +20,7 @@ __plugin_meta__ = PluginMetadata(
         "~feishu",
         "~red",
         "~discord",
+        "~qq",
+        "~satori",
     },
 )
