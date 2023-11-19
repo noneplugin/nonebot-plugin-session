@@ -8,5 +8,6 @@ from . import (
     qq,
     qqguild,
     red,
+    satori,
     telegram,
 )
