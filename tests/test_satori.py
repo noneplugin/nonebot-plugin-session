@@ -1,14 +1,11 @@
-from datetime import datetime
-
 from nonebot import get_driver
 from nonebot.adapters.satori import Adapter, Bot
 from nonebot.adapters.satori.config import ClientInfo
 from nonebot.adapters.satori.event import (
-    Event,
+    GuildAddedEvent,
     PrivateMessageCreatedEvent,
     PublicMessageCreatedEvent,
 )
-from nonebot.adapters.satori.models import ChannelType
 from nonebug.app import App
 
 from .utils import assert_session
@@ -326,4 +323,41 @@ def test_channel_message_create_event(app: App):
         id1="3344",
         id2="6677",
         id3="5566",
+    )
+
+
+def test_undefined_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = GuildAddedEvent.parse_obj(
+        {
+            "id": 4,
+            "type": "message-created",
+            "platform": "kook",
+            "self_id": "2233",
+            "timestamp": 17000000000,
+            "argv": None,
+            "button": None,
+            "channel": None,
+            "guild": {"id": "5566", "name": None, "avatar": None},
+            "login": None,
+            "member": None,
+            "message": None,
+            "operator": None,
+            "role": None,
+            "user": None,
+            "_type": "kook",
+        }
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="Satori",
+        platform="unknown",
+        level=SessionLevel.LEVEL0,
+        id1=None,
+        id2=None,
+        id3=None,
     )
