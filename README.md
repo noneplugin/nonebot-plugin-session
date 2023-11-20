@@ -125,6 +125,8 @@ async def handle(session_id: str = SessionId(SessionIdType.GROUP)):
 - [x] Feishu
 - [x] RedProtocol
 - [x] Discord
+- [x] QQ
+- [x] Satori
 
 
 ### 相关插件
