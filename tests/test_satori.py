@@ -125,7 +125,109 @@ def test_private_message_create_event(app: App):
     )
 
 
-def test_message_create_event(app: App):
+def test_group_message_create_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = PublicMessageCreatedEvent.parse_obj(
+        {
+            "id": 4,
+            "type": "message-created",
+            "platform": "kook",
+            "self_id": "2233",
+            "timestamp": 17000000000,
+            "argv": None,
+            "button": None,
+            "channel": {
+                "id": "6677",
+                "type": 0,
+                "name": "文字频道",
+                "parent_id": None,
+            },
+            "guild": None,
+            "login": None,
+            "member": {
+                "user": None,
+                "name": None,
+                "nick": "Aislinn",
+                "avatar": None,
+                "joined_at": None,
+            },
+            "message": {
+                "id": "56163f81-de30-4c39-b4c4-3a205d0be9da",
+                "content": [
+                    {
+                        "type": "text",
+                        "attrs": {"text": "test"},
+                        "children": [],
+                        "source": None,
+                    }
+                ],
+                "channel": None,
+                "guild": None,
+                "member": {
+                    "user": {
+                        "id": "3344",
+                        "name": "Aislinn",
+                        "nick": None,
+                        "avatar": "https://img.kookapp.cn/avatars/2021-08/GjdUSjtmtD06j06j.png?x-oss-process=style/icon",
+                        "is_bot": None,
+                        "username": "Aislinn",
+                        "user_id": "3344",
+                        "discriminator": "4261",
+                    },
+                    "name": None,
+                    "nick": "Aislinn",
+                    "avatar": None,
+                    "joined_at": None,
+                },
+                "user": {
+                    "id": "3344",
+                    "name": "Aislinn",
+                    "nick": None,
+                    "avatar": "https://img.kookapp.cn/avatars/2021-08/GjdUSjtmtD06j06j.png?x-oss-process=style/icon",
+                    "is_bot": None,
+                    "username": "Aislinn",
+                    "user_id": "3344",
+                    "discriminator": "4261",
+                },
+                "created_at": None,
+                "updated_at": None,
+                "message_id": "56163f81-de30-4c39-b4c4-3a205d0be9da",
+                "elements": [
+                    {"type": "text", "attrs": {"content": "test"}, "children": []}
+                ],
+                "timestamp": 1700474858446,
+            },
+            "operator": None,
+            "role": None,
+            "user": {
+                "id": "3344",
+                "name": "Aislinn",
+                "nick": None,
+                "avatar": "https://img.kookapp.cn/avatars/2021-08/GjdUSjtmtD06j06j.png?x-oss-process=style/icon",
+                "is_bot": None,
+                "username": "Aislinn",
+                "user_id": "3344",
+                "discriminator": "4261",
+            },
+            "_type": "kook",
+        }
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="Satori",
+        platform="kook",
+        level=SessionLevel.LEVEL2,
+        id1="3344",
+        id2="6677",
+        id3=None,
+    )
+
+
+def test_channel_message_create_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
