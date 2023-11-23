@@ -10,7 +10,6 @@ try:
         PrivateMessageEvent,
         PublicMessageEvent,
     )
-    from nonebot.adapters.satori.models import ChannelType
 
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
@@ -24,17 +23,8 @@ try:
                 if self.event.guild:
                     return SessionLevel.LEVEL3
                 return SessionLevel.LEVEL2
-            else:
-                if self.event.guild:
-                    return SessionLevel.LEVEL3
-                elif self.event.channel:
-                    if self.event.channel.type == ChannelType.DIRECT:
-                        return SessionLevel.LEVEL1
-                    else:
-                        return SessionLevel.LEVEL2
-                elif self.event.user:
-                    return SessionLevel.LEVEL1
-                return SessionLevel.LEVEL0
+
+            return SessionLevel.LEVEL0
 
         def extract_id2(self) -> Optional[str]:
             if self.event.channel:
