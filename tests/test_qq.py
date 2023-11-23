@@ -9,7 +9,7 @@ from nonebot.adapters.qq.event import (
     MessageCreateEvent,
     MetaEvent,
 )
-from nonebot.adapters.qq.models import Author, User
+from nonebot.adapters.qq.models import FriendAuthor, GroupMemberAuthor, User
 from nonebug.app import App
 
 from .utils import assert_session
@@ -80,7 +80,7 @@ def test_c2c_message_create_event(app: App):
         __type__=EventType.C2C_MESSAGE_CREATE,
         content="test",
         timestamp="2023-01-01T00:00:00",
-        author=Author(id="3344"),
+        author=FriendAuthor(id="1111", user_openid="3344"),
     )
     session = extract_session(bot, event)
     assert_session(
@@ -104,8 +104,8 @@ def test_group_at_message_create_event(app: App):
         __type__=EventType.C2C_MESSAGE_CREATE,
         content="test",
         timestamp="2023-01-01T00:00:00",
-        author=Author(id="3344"),
-        group_id="6677",
+        author=GroupMemberAuthor(id="1111", member_openid="3344"),
+        group_openid="6677",
     )
     session = extract_session(bot, event)
     assert_session(

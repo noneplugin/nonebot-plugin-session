@@ -60,7 +60,7 @@ try:
 
         def extract_id2(self) -> Optional[str]:
             if isinstance(self.event, GroupAtMessageCreateEvent):
-                return self.event.group_id
+                return self.event.group_openid
             elif isinstance(
                 self.event,
                 (
