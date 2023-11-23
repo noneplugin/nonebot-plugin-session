@@ -4,7 +4,6 @@ from nonebot.adapters.kaiheila.event import (
     ChannelMessageEvent,
     EventMessage,
     Extra,
-    HeartbeatMetaEvent,
     PrivateMessageEvent,
     User,
 )
@@ -196,22 +195,4 @@ def test_server_message(app: App):
         id1="3344",
         id2=None,
         id3="6677",
-    )
-
-
-def test_undefined_event(app: App):
-    from nonebot_plugin_session import SessionLevel, extract_session
-
-    bot = new_bot(self_id="2233")
-    event = HeartbeatMetaEvent(post_type="meta_event", meta_event_type="heartbeat")
-    session = extract_session(bot, event)
-    assert_session(
-        session,
-        bot_id="2233",
-        bot_type="Kaiheila",
-        platform="unknown",
-        level=SessionLevel.LEVEL0,
-        id1=None,
-        id2=None,
-        id3=None,
     )

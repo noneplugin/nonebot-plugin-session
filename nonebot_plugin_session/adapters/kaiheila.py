@@ -15,10 +15,8 @@ try:
         def extract_level(self) -> SessionLevel:
             if self.event.channel_type == "PERSON":
                 return SessionLevel.LEVEL1
-            elif self.event.channel_type == "GROUP":
+            else:
                 return SessionLevel.LEVEL3
-
-            return SessionLevel.LEVEL0
 
         def extract_id2(self) -> Optional[str]:
             if self.event.channel_type == "GROUP":

@@ -3,6 +3,7 @@ from nonebot.adapters.red import Adapter, Bot, Message
 from nonebot.adapters.red.api.model import ChatType, MsgType, RoleInfo
 from nonebot.adapters.red.config import BotInfo
 from nonebot.adapters.red.event import (
+    Event,
     GroupMessageEvent,
     NoticeEvent,
     PrivateMessageEvent,
@@ -207,6 +208,27 @@ def test_notice_event(app: App):
         bot_type="RedProtocol",
         platform="qq",
         level=SessionLevel.LEVEL1,
+        id1=None,
+        id2=None,
+        id3=None,
+    )
+
+
+def test_undefined_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    class FakeEvent(Event):
+        pass
+
+    bot = new_bot(self_id="2233")
+    event = FakeEvent()
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="RedProtocol",
+        platform="qq",
+        level=SessionLevel.LEVEL0,
         id1=None,
         id2=None,
         id3=None,
