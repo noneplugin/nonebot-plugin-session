@@ -22,7 +22,17 @@ def new_bot(self_id: str) -> Bot:
             bot_id=self_id,
             bot_secret="qwerty",
             connection_type="webhook",
-            pub_key="-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsFPe+wIEc+SuzFrkTMJu\ncIG7XOgJ3FPAXyCPLYQz5pTr8wNydQt910o/bxvFIbeTxczBgsnzFK0J6W8BO7B7\n4kpBeKB017TGWWXaGsd/1Mtf/ZhIamboASFU08/NP4DspkkYGhBwuiDYFQ9AUhlS\nKdAEH5Waw9SqTflGmanaK95F3bJVULomExtqXXk/Yk5sQ6Gala3sFVdzfrti+XzZ\nIANP4S2PG67575w7UaR/FDhhaZWak5mhF49DgTs4kloM2Gf8GDhOxFVQfAm+E3sS\nrDeB6ED0ArfpC9CnG4lw8EkUCKXaRMaELx542W9aFk4x04yS7eeHtR6mO3Bs6mYX\nbQIDAQAB\n-----END PUBLIC KEY-----\n",
+            pub_key=(
+                "-----BEGIN PUBLIC KEY-----\n"
+                "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsFPe+wIEc+SuzFrkTMJu\n"
+                "cIG7XOgJ3FPAXyCPLYQz5pTr8wNydQt910o/bxvFIbeTxczBgsnzFK0J6W8BO7B7\n"
+                "4kpBeKB017TGWWXaGsd/1Mtf/ZhIamboASFU08/NP4DspkkYGhBwuiDYFQ9AUhlS\n"
+                "KdAEH5Waw9SqTflGmanaK95F3bJVULomExtqXXk/Yk5sQ6Gala3sFVdzfrti+XzZ\n"
+                "IANP4S2PG67575w7UaR/FDhhaZWak5mhF49DgTs4kloM2Gf8GDhOxFVQfAm+E3sS\n"
+                "rDeB6ED0ArfpC9CnG4lw8EkUCKXaRMaELx542W9aFk4x04yS7eeHtR6mO3Bs6mYX\n"
+                "bQIDAQAB\n"
+                "-----END PUBLIC KEY-----\n"
+            ),
         ),
     )
 

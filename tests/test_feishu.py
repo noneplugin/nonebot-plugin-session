@@ -3,6 +3,8 @@ from nonebot.adapters.feishu import (
     Adapter,
     Bot,
     EventHeader,
+    GroupMemberUserAddedEvent,
+    GroupMemberUserAddedEventDetail,
     GroupMessageEvent,
     GroupMessageEventDetail,
     MessageReadEvent,
@@ -11,9 +13,9 @@ from nonebot.adapters.feishu import (
     PrivateMessageEventDetail,
     UserId,
 )
-from nonebot.adapters.feishu.bot import BotInfo
 from nonebot.adapters.feishu.config import BotConfig
 from nonebot.adapters.feishu.models import (
+    BotInfo,
     GroupEventMessage,
     MessageReader,
     PrivateEventMessage,
@@ -149,6 +151,48 @@ def test_group_message_event(app: App):
         platform="feishu",
         level=SessionLevel.LEVEL2,
         id1="3344",
+        id2="1122",
+        id3=None,
+    )
+
+
+def test_group_member_user_added_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    header = EventHeader(
+        event_id="114514",
+        event_type="im.chat.member.user.added_v1",
+        create_time="123456",
+        token="token",
+        app_id="app_id",
+        tenant_key="tenant_key",
+        resource_id=None,
+        user_list=None,
+    )
+    event = GroupMemberUserAddedEvent(
+        schema="2.0",
+        header=header,
+        event=GroupMemberUserAddedEventDetail(
+            chat_id="1122",
+            operator_id=UserId(
+                open_id="3344",
+                user_id="on_111",
+                union_id="on_222",
+            ),
+            external=True,
+            operator_tenant_key="operator_tenant_key",
+            users=[],
+        ),
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="Feishu",
+        platform="feishu",
+        level=SessionLevel.LEVEL2,
+        id1=None,
         id2="1122",
         id3=None,
     )

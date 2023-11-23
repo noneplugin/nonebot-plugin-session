@@ -1,8 +1,13 @@
 from nonebot.plugin import PluginMetadata
 
-from . import adapters
-from .extractor import EventSession, SessionExtractor, SessionId, extract_session
-from .session import Session, SessionIdType, SessionLevel
+from . import adapters as adapters
+from .extractor import EventSession as EventSession
+from .extractor import SessionExtractor as SessionExtractor
+from .extractor import SessionId as SessionId
+from .extractor import extract_session as extract_session
+from .session import Session as Session
+from .session import SessionIdType as SessionIdType
+from .session import SessionLevel as SessionLevel
 
 __plugin_meta__ = PluginMetadata(
     name="会话id",
@@ -22,5 +27,7 @@ __plugin_meta__ = PluginMetadata(
         "~discord",
         "~qq",
         "~satori",
+        "~villa",
+        "~dodo",
     },
 )

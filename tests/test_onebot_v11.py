@@ -5,6 +5,7 @@ from nonebot.adapters.onebot.v11 import (
     GroupMessageEvent,
     HeartbeatMetaEvent,
     Message,
+    PokeNotifyEvent,
     PrivateMessageEvent,
 )
 from nonebot.adapters.onebot.v11.event import Sender, Status
@@ -75,6 +76,55 @@ def test_group_message_event(app: App):
         platform="qq",
         level=SessionLevel.LEVEL2,
         id1="3344",
+        id2="1122",
+        id3=None,
+    )
+
+
+def test_poke_notify_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = PokeNotifyEvent(
+        time=1122,
+        self_id=2233,
+        post_type="notice",
+        notice_type="notify",
+        sub_type="poke",
+        user_id=5566,
+        group_id=None,
+        target_id=2233,
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="OneBot V11",
+        platform="qq",
+        level=SessionLevel.LEVEL1,
+        id1="5566",
+        id2=None,
+        id3=None,
+    )
+
+    event = PokeNotifyEvent(
+        time=1122,
+        self_id=2233,
+        post_type="notice",
+        notice_type="notify",
+        sub_type="poke",
+        user_id=5566,
+        group_id=1122,
+        target_id=7788,
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="OneBot V11",
+        platform="qq",
+        level=SessionLevel.LEVEL2,
+        id1="5566",
         id2="1122",
         id3=None,
     )
