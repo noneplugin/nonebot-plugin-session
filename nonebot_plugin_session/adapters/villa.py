@@ -6,7 +6,12 @@ from ..session import SessionLevel
 
 try:
     from nonebot.adapters.villa import Bot, Event
-    from nonebot.adapters.villa.event import SendMessageEvent, AddQuickEmoticonEvent, AuditCallbackEvent, ClickMsgComponentEvent
+    from nonebot.adapters.villa.event import (
+        AddQuickEmoticonEvent,
+        AuditCallbackEvent,
+        ClickMsgComponentEvent,
+        SendMessageEvent,
+    )
 
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
@@ -17,7 +22,15 @@ try:
             return SessionLevel.LEVEL3
 
         def extract_id2(self) -> Optional[str]:
-            if isinstance(self.event, (SendMessageEvent, AddQuickEmoticonEvent, AuditCallbackEvent, ClickMsgComponentEvent)):
+            if isinstance(
+                self.event,
+                (
+                    SendMessageEvent,
+                    AddQuickEmoticonEvent,
+                    AuditCallbackEvent,
+                    ClickMsgComponentEvent,
+                ),
+            ):
                 return str(self.event.room_id)
 
         def extract_id3(self) -> Optional[str]:

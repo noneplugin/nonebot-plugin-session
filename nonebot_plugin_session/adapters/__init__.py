@@ -1,6 +1,7 @@
 from . import (  # noqa F401
     console,
     discord,
+    dodo,
     feishu,
     kaiheila,
     onebot_v11,
@@ -10,6 +11,5 @@ from . import (  # noqa F401
     red,
     satori,
     telegram,
-    dodo,
-    villa
+    villa,
 )

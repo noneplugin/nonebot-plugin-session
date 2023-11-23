@@ -2,7 +2,11 @@ from nonebot import get_driver
 from nonebot.adapters.red import Adapter, Bot, Message
 from nonebot.adapters.red.api.model import ChatType, MsgType, RoleInfo
 from nonebot.adapters.red.config import BotInfo
-from nonebot.adapters.red.event import GroupMessageEvent, PrivateMessageEvent
+from nonebot.adapters.red.event import (
+    GroupMessageEvent,
+    NoticeEvent,
+    PrivateMessageEvent,
+)
 from nonebug.app import App
 
 from .utils import assert_session
@@ -154,5 +158,56 @@ def test_group_message_event(app: App):
         level=SessionLevel.LEVEL2,
         id1="1234",
         id2="1111",
+        id3=None,
+    )
+
+
+def test_notice_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = NoticeEvent(
+        msgId="7272944513098472702",
+        msgRandom="1526531828",
+        msgSeq="831",
+        cntSeq="0",
+        chatType=ChatType.GROUP,
+        msgType=MsgType.normal,
+        subMsgType=1,
+        peerUid="1111",
+        peerUin="1111",
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="RedProtocol",
+        platform="qq",
+        level=SessionLevel.LEVEL2,
+        id1=None,
+        id2="1111",
+        id3=None,
+    )
+
+    event = NoticeEvent(
+        msgId="7272944513098472702",
+        msgRandom="1526531828",
+        msgSeq="831",
+        cntSeq="0",
+        chatType=ChatType.FRIEND,
+        msgType=MsgType.normal,
+        subMsgType=1,
+        peerUid="1111",
+        peerUin="1111",
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="RedProtocol",
+        platform="qq",
+        level=SessionLevel.LEVEL1,
+        id1=None,
+        id2=None,
         id3=None,
     )
