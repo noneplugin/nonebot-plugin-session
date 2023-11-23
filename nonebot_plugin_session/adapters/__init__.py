@@ -10,4 +10,6 @@ from . import (  # noqa F401
     red,
     satori,
     telegram,
+    dodo,
+    villa
 )
