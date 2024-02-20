@@ -113,7 +113,6 @@ async def handle(session_id: str = SessionId(SessionIdType.GROUP)):
 - [x] OneBot v12
 - [x] Console
 - [x] Kaiheila
-- [x] QQ Guild
 - [x] Telegram
 - [x] Feishu
 - [x] RedProtocol
