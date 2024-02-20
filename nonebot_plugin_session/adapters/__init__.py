@@ -9,4 +9,3 @@ from . import qq as qq
 from . import red as red
 from . import satori as satori
 from . import telegram as telegram
-from . import villa as villa

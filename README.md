@@ -119,7 +119,6 @@ async def handle(session_id: str = SessionId(SessionIdType.GROUP)):
 - [x] Discord
 - [x] QQ
 - [x] Satori
-- [x] Villa
 - [x] DoDo
 
 ### 相关插件
