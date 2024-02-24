@@ -226,6 +226,7 @@ try:
             if isinstance(
                 self.event,
                 (
+                    ChannelEvent,
                     GuildMemberEvent,
                     GuildMessageEvent,
                     MessageReactionEvent,
