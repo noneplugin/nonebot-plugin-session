@@ -24,7 +24,7 @@ def test_private_message_create_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
-    event = PrivateMessageCreatedEvent.parse_obj(
+    event = PrivateMessageCreatedEvent.model_validate(
         {
             "id": 5,
             "type": "message-created",
@@ -126,7 +126,7 @@ def test_group_message_create_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
-    event = PublicMessageCreatedEvent.parse_obj(
+    event = PublicMessageCreatedEvent.model_validate(
         {
             "id": 4,
             "type": "message-created",
@@ -228,7 +228,7 @@ def test_channel_message_create_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
-    event = PublicMessageCreatedEvent.parse_obj(
+    event = PublicMessageCreatedEvent.model_validate(
         {
             "id": 4,
             "type": "message-created",
@@ -330,7 +330,7 @@ def test_undefined_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
-    event = InternalEvent.parse_obj(
+    event = InternalEvent.model_validate(
         {
             "id": 4,
             "type": "internal",

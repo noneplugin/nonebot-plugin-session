@@ -24,7 +24,7 @@ def test_private_message_event():
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot("2233")
-    event = PrivateMessageEvent.parse_obj(
+    event = PrivateMessageEvent.model_validate(
         {
             "message_id": 1234,
             "date": 1122,
@@ -54,7 +54,7 @@ def test_group_message_event():
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot("2233")
-    event = GroupMessageEvent.parse_obj(
+    event = GroupMessageEvent.model_validate(
         {
             "message_id": 1234,
             "date": 1122,
@@ -84,7 +84,7 @@ def test_forum_topic_message_event():
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot("2233")
-    event = ForumTopicMessageEvent.parse_obj(
+    event = ForumTopicMessageEvent.model_validate(
         {
             "message_id": 1234,
             "date": 1122,

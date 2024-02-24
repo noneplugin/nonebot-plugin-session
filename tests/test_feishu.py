@@ -28,7 +28,7 @@ from .utils import assert_session
 
 def new_bot(self_id: str) -> Bot:
     bot_config = BotConfig(app_id="114", app_secret="514", verification_token="1919810")
-    bot_info = BotInfo.parse_obj(
+    bot_info = BotInfo.model_validate(
         {
             "activate_status": 2,
             "app_name": "name",

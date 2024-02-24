@@ -24,7 +24,7 @@ def test_guild_message_create_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
-    event = GuildMessageCreateEvent.parse_obj(
+    event = GuildMessageCreateEvent.model_validate(
         {
             "id": 1234,
             "channel_id": 5566,
@@ -55,7 +55,7 @@ def test_guild_message_create_event(app: App):
             "to_me": False,
             "reply": None,
             "_message": [],
-        }
+        },
     )
     session = extract_session(bot, event)
     assert_session(
@@ -74,7 +74,7 @@ def test_direct_message_create_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
     bot = new_bot(self_id="2233")
-    event = DirectMessageCreateEvent.parse_obj(
+    event = DirectMessageCreateEvent.model_validate(
         {
             "id": 1234,
             "channel_id": 5566,
@@ -104,7 +104,7 @@ def test_direct_message_create_event(app: App):
             "to_me": False,
             "reply": None,
             "_message": [],
-        }
+        },
     )
     session = extract_session(bot, event)
     assert_session(
