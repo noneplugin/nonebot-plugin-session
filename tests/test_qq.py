@@ -1,15 +1,27 @@
+from datetime import datetime
+
 from nonebot import get_driver
 from nonebot.adapters.qq import Adapter, Bot
 from nonebot.adapters.qq.config import BotInfo
 from nonebot.adapters.qq.event import (
     C2CMessageCreateEvent,
+    ChannelCreateEvent,
     DirectMessageCreateEvent,
     EventType,
     GroupAtMessageCreateEvent,
+    GuildDeleteEvent,
     MessageCreateEvent,
+    MessageDeleteEvent,
     MetaEvent,
 )
-from nonebot.adapters.qq.models import FriendAuthor, GroupMemberAuthor, User
+from nonebot.adapters.qq.models import (
+    ChannelSubType,
+    ChannelType,
+    FriendAuthor,
+    GroupMemberAuthor,
+)
+from nonebot.adapters.qq.models import Message as GuildMessage
+from nonebot.adapters.qq.models import User
 from nonebug.app import App
 
 from .utils import assert_session
@@ -117,6 +129,91 @@ def test_group_at_message_create_event(app: App):
         id1="3344",
         id2="6677",
         id3=None,
+    )
+
+
+def test_message_delete_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = MessageDeleteEvent(
+        __type__=EventType.MESSAGE_DELETE,
+        message=GuildMessage(
+            id="123",
+            channel_id="6677",
+            guild_id="5566",
+            content="test",
+            author=User(id="3344"),
+        ),
+        op_user=User(id="3344"),
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="QQ",
+        platform="qqguild",
+        level=SessionLevel.LEVEL3,
+        id1=None,
+        id2="6677",
+        id3="5566",
+    )
+
+
+def test_guild_delete_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = GuildDeleteEvent(
+        __type__=EventType.GUILD_DELETE,
+        id="5566",
+        name="test",
+        icon="icon",
+        owner_id="3344",
+        owner=True,
+        member_count=1,
+        max_members=100,
+        description="description",
+        joined_at=datetime.now(),
+        op_user_id="3344",
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="QQ",
+        platform="qqguild",
+        level=SessionLevel.LEVEL3,
+        id1=None,
+        id2=None,
+        id3="5566",
+    )
+
+
+def test_channel_create_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = ChannelCreateEvent(
+        __type__=EventType.CHANNEL_CREATE,
+        id="6677",
+        guild_id="5566",
+        name="test",
+        type=ChannelType.TEXT,
+        sub_type=ChannelSubType.TALK,
+        position=1,
+        op_user_id="3344",
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="QQ",
+        platform="qqguild",
+        level=SessionLevel.LEVEL3,
+        id1=None,
+        id2="6677",
+        id3="5566",
     )
 
 

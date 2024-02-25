@@ -2,27 +2,25 @@ from strenum import StrEnum
 
 
 class SupportedAdapter(StrEnum):
+    console = "Console"
+    discord = "Discord"
+    dodo = "DoDo"
+    feishu = "Feishu"
+    kaiheila = "Kaiheila"
     onebot_v11 = "OneBot V11"
     onebot_v12 = "OneBot V12"
-    console = "Console"
-    kaiheila = "Kaiheila"
-    qqguild = "QQ Guild"
-    telegram = "Telegram"
-    feishu = "Feishu"
+    qq = "QQ"
     red = "RedProtocol"
-    discord = "Discord"
-    villa = "Villa"
-    dodo = "DoDo"
+    telegram = "Telegram"
 
 
 class SupportedPlatform(StrEnum):
-    qq = "qq"
     console = "console"
+    discord = "discord"
+    dodo = "dodo"
+    feishu = "feishu"
     kaiheila = "kaiheila"
+    qq = "qq"
     qqguild = "qqguild"
     telegram = "telegram"
-    feishu = "feishu"
-    discord = "discord"
-    villa = "villa"
-    dodo = "dodo"
     unknown = "unknown"
