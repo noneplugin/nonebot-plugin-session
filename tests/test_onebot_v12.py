@@ -86,7 +86,7 @@ def test_group_message_event(app: App):
 def test_channel_message_event(app: App):
     from nonebot_plugin_session import SessionLevel, extract_session
 
-    bot = new_bot(self_id="2233", impl="all4one", platform="qqguild")
+    bot = new_bot(self_id="2233", impl="walle-k", platform="kook")
     event = ChannelMessageEvent(
         id="1122",
         time=datetime.now(),
@@ -94,7 +94,7 @@ def test_channel_message_event(app: App):
         detail_type="channel",
         sub_type="",
         message_id="4455",
-        self=BotSelf(platform="qqguild", user_id="2233"),
+        self=BotSelf(platform="kook", user_id="2233"),
         message=Message("123"),
         original_message=Message("123"),
         alt_message="123",
@@ -107,7 +107,7 @@ def test_channel_message_event(app: App):
         session,
         bot_id="2233",
         bot_type="OneBot V12",
-        platform="qqguild",
+        platform="kaiheila",
         level=SessionLevel.LEVEL3,
         id1="3344",
         id2="6677",
@@ -133,6 +133,31 @@ def test_undefined_event(app: App):
         bot_id="2233",
         bot_type="OneBot V12",
         platform="qq",
+        level=SessionLevel.LEVEL0,
+        id1=None,
+        id2=None,
+        id3=None,
+    )
+
+
+def test_unknown_platform(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233", impl="all4one", platform="villa")
+    event = HeartbeatMetaEvent(
+        id="1122",
+        time=datetime.now(),
+        type="meta",
+        detail_type="heartbeat",
+        sub_type="",
+        interval=10,
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="OneBot V12",
+        platform="unknown",
         level=SessionLevel.LEVEL0,
         id1=None,
         id2=None,

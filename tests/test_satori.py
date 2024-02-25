@@ -130,7 +130,7 @@ def test_group_message_create_event(app: App):
         {
             "id": 4,
             "type": "message-created",
-            "platform": "kook",
+            "platform": "chronocat",
             "self_id": "2233",
             "timestamp": 17000000000,
             "argv": None,
@@ -208,7 +208,6 @@ def test_group_message_create_event(app: App):
                 "user_id": "3344",
                 "discriminator": "4261",
             },
-            "_type": "kook",
         }
     )
     session = extract_session(bot, event)
@@ -216,7 +215,7 @@ def test_group_message_create_event(app: App):
         session,
         bot_id="2233",
         bot_type="Satori",
-        platform="kaiheila",
+        platform="qq",
         level=SessionLevel.LEVEL2,
         id1="3344",
         id2="6677",
@@ -232,7 +231,7 @@ def test_channel_message_create_event(app: App):
         {
             "id": 4,
             "type": "message-created",
-            "platform": "kook",
+            "platform": "qqguild",
             "self_id": "2233",
             "timestamp": 17000000000,
             "argv": None,
@@ -310,7 +309,6 @@ def test_channel_message_create_event(app: App):
                 "user_id": "3344",
                 "discriminator": "4261",
             },
-            "_type": "kook",
         }
     )
     session = extract_session(bot, event)
@@ -318,7 +316,7 @@ def test_channel_message_create_event(app: App):
         session,
         bot_id="2233",
         bot_type="Satori",
-        platform="kaiheila",
+        platform="qqguild",
         level=SessionLevel.LEVEL3,
         id1="3344",
         id2="6677",
@@ -355,6 +353,42 @@ def test_undefined_event(app: App):
         bot_id="2233",
         bot_type="Satori",
         platform="kaiheila",
+        level=SessionLevel.LEVEL0,
+        id1=None,
+        id2=None,
+        id3=None,
+    )
+
+
+def test_unknown_platform(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = InternalEvent.model_validate(
+        {
+            "id": 4,
+            "type": "internal",
+            "platform": "villa",
+            "self_id": "2233",
+            "timestamp": 17000000000,
+            "argv": None,
+            "button": None,
+            "channel": None,
+            "guild": None,
+            "login": None,
+            "member": None,
+            "message": None,
+            "operator": None,
+            "role": None,
+            "user": None,
+        }
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="Satori",
+        platform="unknown",
         level=SessionLevel.LEVEL0,
         id1=None,
         id2=None,
