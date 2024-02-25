@@ -1,5 +1,6 @@
 from typing import Optional
 
+from ..const import SupportedPlatform
 from ..extractor import SessionExtractor, register_session_extractor
 from ..session import SessionLevel
 
@@ -28,7 +29,12 @@ try:
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
         def extract_platform(self) -> str:
-            return self.bot.platform
+            platform = self.bot.platform
+            if platform in ("kook",):
+                return SupportedPlatform.kaiheila
+            elif platform in list(SupportedPlatform):
+                return platform
+            return SupportedPlatform.unknown
 
         def extract_level(self) -> SessionLevel:
             if isinstance(
