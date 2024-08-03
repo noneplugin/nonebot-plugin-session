@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 from pydantic import BaseModel
 
@@ -63,7 +63,7 @@ class Session(BaseModel):
         include_id2 = bool((id_type >> 1) & 1)
         include_id3 = bool((id_type >> 2) & 1)
 
-        parts: List[str] = []
+        parts: list[str] = []
         if include_platform:
             parts.append(self.platform)
         if include_bot_type:

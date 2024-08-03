@@ -1,8 +1,7 @@
-from typing import Generic, List, NamedTuple, Optional, Type, TypeVar, Union
+from typing import Annotated, Generic, NamedTuple, Optional, TypeVar, Union
 
 from nonebot.adapters import Bot, Event
 from nonebot.params import Depends
-from typing_extensions import Annotated
 
 from .const import SupportedPlatform
 from .session import Session, SessionIdType, SessionLevel
@@ -53,16 +52,16 @@ class SessionExtractor(Generic[B, E]):
 
 
 class SessionExtractorTuple(NamedTuple):
-    bot: Type[Bot]
-    event: Type[Event]
-    extractor: Type[SessionExtractor]
+    bot: type[Bot]
+    event: type[Event]
+    extractor: type[SessionExtractor]
 
 
-_session_extractors: List[SessionExtractorTuple] = []
+_session_extractors: list[SessionExtractorTuple] = []
 
 
-def register_session_extractor(bot: Type[Bot], event: Type[Event]):
-    def wrapper(extractor: Type[SessionExtractor]):
+def register_session_extractor(bot: type[Bot], event: type[Event]):
+    def wrapper(extractor: type[SessionExtractor]):
         _session_extractors.append(SessionExtractorTuple(bot, event, extractor))
         return extractor
 
@@ -87,7 +86,7 @@ def SessionId(
     include_platform: bool = True,
     include_bot_type: bool = True,
     include_bot_id: bool = True,
-    seperator: str = "_"
+    seperator: str = "_",
 ):
     def dependency(bot: Bot, event: Event) -> str:
         session = extract_session(bot, event)
