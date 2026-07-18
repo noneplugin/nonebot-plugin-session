@@ -9,6 +9,7 @@ from nonebot.adapters.qq.event import (
     DirectMessageCreateEvent,
     EventType,
     GroupAtMessageCreateEvent,
+    GroupMessageCreateEvent,
     GuildDeleteEvent,
     MessageCreateEvent,
     MessageDeleteEvent,
@@ -113,11 +114,38 @@ def test_group_at_message_create_event(app: App):
     bot = new_bot(self_id="2233")
     event = GroupAtMessageCreateEvent(
         id="id",
-        __type__=EventType.C2C_MESSAGE_CREATE,
+        __type__=EventType.GROUP_AT_MESSAGE_CREATE,
         content="test",
         timestamp="2023-01-01T00:00:00",
-        author=GroupMemberAuthor(id="1111", member_openid="3344"),
+        author=GroupMemberAuthor(id="1111", bot=False, member_openid="3344"),
         group_openid="6677",
+        group_id="group_id",
+    )
+    session = extract_session(bot, event)
+    assert_session(
+        session,
+        bot_id="2233",
+        bot_type="QQ",
+        platform="qq",
+        level=SessionLevel.LEVEL2,
+        id1="3344",
+        id2="6677",
+        id3=None,
+    )
+
+
+def test_group_message_create_event(app: App):
+    from nonebot_plugin_session import SessionLevel, extract_session
+
+    bot = new_bot(self_id="2233")
+    event = GroupMessageCreateEvent(
+        id="id",
+        __type__=EventType.GROUP_MESSAGE_CREATE,
+        content="test",
+        timestamp="2023-01-01T00:00:00",
+        author=GroupMemberAuthor(id="1111", bot=False, member_openid="3344"),
+        group_openid="6677",
+        group_id="group_id",
     )
     session = extract_session(bot, event)
     assert_session(

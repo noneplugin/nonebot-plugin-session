@@ -24,6 +24,15 @@ try:
         PublicMessageDeleteEvent,
     )
 
+    # GroupMessageCreateEvent 是 adapter-qq >= 1.7.0 新增的，
+    # 低版本适配器不会注册该事件的提取器
+    try:
+        from nonebot.adapters.qq import GroupMessageCreateEvent
+    except ImportError:
+        GroupMessageCreateEvent = None
+
+    _HAS_GROUP_MESSAGE = hasattr(EventType, "GROUP_MESSAGE_CREATE")
+
     @register_session_extractor(Bot, Event)
     class EventExtractor(SessionExtractor[Bot, Event]):
         def extract_platform(self) -> str:
@@ -41,7 +50,8 @@ try:
                 EventType.GROUP_DEL_ROBOT,
                 EventType.GROUP_MSG_REJECT,
                 EventType.GROUP_MSG_RECEIVE,
-            ]:
+            ] or (_HAS_GROUP_MESSAGE
+                  and self.event.__type__ == EventType.GROUP_MESSAGE_CREATE):
                 return SupportedPlatform.qq
 
             elif self.event.__type__ in [
@@ -123,6 +133,11 @@ try:
 
             elif self.event.__type__ in [
                 EventType.GROUP_AT_MESSAGE_CREATE,
+            ] or (_HAS_GROUP_MESSAGE
+                  and self.event.__type__ == EventType.GROUP_MESSAGE_CREATE):
+                return SessionLevel.LEVEL2
+
+            elif self.event.__type__ in [
                 # GROUP_ROBOT_EVENT
                 EventType.GROUP_ADD_ROBOT,
                 EventType.GROUP_DEL_ROBOT,
@@ -149,6 +164,9 @@ try:
                 # GUILD_MESSAGE_REACTIONS
                 EventType.MESSAGE_REACTION_ADD,
                 EventType.MESSAGE_REACTION_REMOVE,
+                # DIRECT_MESSAGE
+                EventType.DIRECT_MESSAGE_CREATE,
+                EventType.DIRECT_MESSAGE_DELETE,
                 # OPEN_FORUMS_EVENT
                 EventType.OPEN_FORUM_THREAD_CREATE,
                 EventType.OPEN_FORUM_THREAD_UPDATE,
@@ -190,10 +208,13 @@ try:
         def extract_id2(self) -> Optional[str]:
             if isinstance(
                 self.event,
-                (
-                    GroupAtMessageCreateEvent,
-                    GroupRobotEvent,
-                ),
+                (GroupAtMessageCreateEvent, GroupRobotEvent),
+            ):
+                return self.event.group_openid
+
+            if (
+                GroupMessageCreateEvent is not None
+                and isinstance(self.event, GroupMessageCreateEvent)
             ):
                 return self.event.group_openid
 
